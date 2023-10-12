@@ -1,0 +1,39 @@
+.home_page{
+    display: flex;
+    flex-direction: row;
+    background-color: #999;
+}
+.home_container{
+    height: 96vh;
+    width: 81vw;
+    background-color: #55b;
+    margin:2vh 2vw 2vh 2vw;
+    border-radius: 20px;
+    padding:3vw;
+    display: flex;
+    flex-wrap:wrap;
+}
+.profil{
+    width:55vw;
+    height: 20vh;
+    text-align: end;
+    margin:0;
+    padding-right:40px;
+    font-size:1.5rem;
+    color:white;
+}
+.profil_img{
+    background-color: black;
+    width: 20vw;
+    height: 25vh;
+    margin:0;
+}
+.profil_dec{
+    width:100%;
+    min-height: 30vh;
+    background-color: #777;
+    color:white;
+    border-radius: 30px;
+    padding:20px;
+    font-size:2rem;
+}

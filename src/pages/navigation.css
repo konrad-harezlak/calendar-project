@@ -1,0 +1,47 @@
+nav{
+    height: 100vh;
+    width: 15vw;
+    background-color: #55b;
+    margin:0;
+    padding:0;
+}
+nav ul{
+    margin: 0;
+    padding: 0;
+}
+nav ul li{
+    list-style-type: none;
+    font-size: clamp(0em,1vh + 1vw,4em);
+    border-radius: 20px;
+    background-color: #777;
+    padding: 10px;
+    margin:25px auto;
+    width:80%;
+    height: 6vh;
+    border:1px solid #999;
+    transition: background-color 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+nav ul li:hover{
+    background-color: #555;;
+
+}
+.nav_container{
+    height: 90vh;
+}
+.nav_link{
+    text-decoration: none;
+    color:white;
+}
+
+.settings .font_icon{
+    position: absolute;
+    top:93vh;
+    left:1vw;
+    height: 5vh;
+    margin:0;
+    color:darkgray;
+    padding:0px;
+}

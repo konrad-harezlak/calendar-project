@@ -1,0 +1,15 @@
+.recovery_page{
+    background-color: #777;
+    height: 100vh;
+    padding: 20vh;
+}
+.recovery_page .form{
+    border: 1px black solid;
+    width:22vw;
+    height: 31vh;
+    margin:0 auto;
+    background-color: #55b;
+    border-radius: 30px;
+    padding: 15px;
+    text-align: center;
+}
