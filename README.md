@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# Calendar Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Calendar Project! This web application, built using React, Node.js, and MongoDB, aims to provide users with features for registration, login, and managing appointments. Please note that the backend is under development, and the current version focuses on the frontend components and user interface.
 
-## Available Scripts
+## Technologies Used
 
-In the project directory, you can run:
+- Javascript(React.js)
+- Node.js
+- MongoDB
+- HTML
+- CSS
+- react-router-dom
+- useState hook
 
-### `npm start`
+## Project Overview
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The project is divided into different sections:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Authentication
 
-### `npm test`
+- **Registration:** Users can create a new account with their email and password.
+- **Login:** Registered users can log in to their accounts securely.
+  ![image](https://github.com/konrad-harezlak/calendar-project/assets/146349083/19a2c29f-f51e-41cf-8f5e-dda51b6b316e)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### Profile
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Home:** Users can view their profile information and basic details.
+  ![image](https://github.com/konrad-harezlak/calendar-project/assets/146349083/69f4201e-8b90-4578-aac7-86a560a5926e)
+- **Calendar:** A feature allowing users to manage appointments and schedule future meetings with other users.
+ ![image](https://github.com/konrad-harezlak/calendar-project/assets/146349083/ba97ffae-8c41-4b18-bd40-80e2f612d0a6)
+- **Messages:** Users can send and receive messages with other users.
+  ![image](https://github.com/konrad-harezlak/calendar-project/assets/146349083/074348f5-93c3-4928-9e59-592caac42704)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Settings:** Options for users to change their password and profile picture.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Project Structure
 
-### `npm run eject`
+- **/server:** Backend logic and API endpoints (under development).
+- **/src/pages:** Frontend pages and components for different sections.
+- **/src/App.js:** Main component with React Router for navigation.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## How to Run
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Clone the repository:
+```
+git clone https://github.com/konrad-harezlak/calendar-project
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. Navigate to the project directory:
+```
+cd calendarSoloProject
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+5. Install dependencies for both frontend and backend (in separate terminals):
+```bash
+npm install
+npm install react-router-dom
+npm start
+```
+Open your web browser and visit http://localhost:3000 to view the frontend.
 
-## Learn More
+##Project Status
+The frontend components and user interface are implemented, while the backend and database integration are still in progress. Contributions are welcome!
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Contact
+- GitHub: [Your GitHub Profile](https://github.com/konrad-harezlak)
+- LinkedIn: [Your LinkedIn Profile](https://www.linkedin.com/in/konrad-harężlak-6293a5272/)
+- Phone: 791-019-796
+  
+Feel free to get in touch if you have any questions or would like to collaborate!
