@@ -1,25 +1,20 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const routes = require('./routes');
+const userController = require('./userController')
+const db = require('./db'); 
+const User = require('./userModel');
+
 const app = express();
+app.use(cors());
+app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost:27017/moja_baza', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+app.use('/', routes);
+app.use('/', userController)
+
+app.use(express.urlencoded({ extended: false }));
+
+app.listen(4000, () => {
+  console.log("Server works on 4000");
 });
-
-const db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'Błąd połączenia z MongoDB:'));
-db.once('open', () => {
-  console.log('Połączono z bazą danych MongoDB!');
-});
-
-const mongoose = require('mongoose');
-
-const userSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  password: String,
-});
-
-const User = mongoose.model('User', userSchema);
