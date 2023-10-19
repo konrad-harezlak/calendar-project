@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './registration.css';
 import axios from 'axios'
 
 const Registration = () => {
+    const navigate = useNavigate();
     const [userData, setUserData] = useState({
         userName: '',
         email: '',
         password: '',
         password2: ''
     });
-
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setUserData({
@@ -18,34 +18,28 @@ const Registration = () => {
             [name]: value
         });
     };
-    const navigate = useNavigate();
     const handleSubmit = async (e) => {
         let alert = document.getElementById('alert');
+        alert.innerHTML = '';
         e.preventDefault();
         if (userData.password !== userData.password2) {
-            console.log('Hasło i powtórzone hasło nie są zgodne.');         
+            console.log('Hasło i powtórzone hasło nie są zgodne.');
             alert.innerHTML += 'Hasła nie są takie same!';
             console.log(userData.password + " - " + userData.password2)
             return;
-        }else{
+        }   else 
             alert.innerHTML = '';
-        }
         try {
             await axios.post('http://localhost:4000/registration', userData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-
             });
-            navigate("/");
-
-
-        }
-        catch (error) {
+            return navigate("/");
+        } catch (error) {
             console.error(error, '\n', error.response);
-            if (error.response && error.response.status === 400) {
+            if (error.response && error.response.status === 400) 
                 alert.innerHTML += 'Użytkownik o podanej nazwie już istnieje.';
-              }
         }
 
     }
@@ -58,7 +52,7 @@ const Registration = () => {
                 <form method='POST' onSubmit={handleSubmit}>
                     <label>
                         <p> Podaj Login: </p>
-                        <input type='text' placeholder='Login...' onChange={handleInputChange} name='userName' value={userData.name} />
+                        <input type='text' placeholder='Login...' onChange={handleInputChange} name='userName' value={userData.userName} />
                     </label>
                     <label>
                         <p> Podaj Email: </p>
@@ -70,7 +64,7 @@ const Registration = () => {
                     </label>
                     <label>
                         <p> Powtórz Hasło: </p>
-                        <input type='password' placeholder='Powtórz hasło...'  onChange={handleInputChange} name='password2' value={userData.password2}/>
+                        <input type='password' placeholder='Powtórz hasło...' onChange={handleInputChange} name='password2' value={userData.password2} />
                     </label>
                     <p id='alert' style={{ fontSize: '2vh', color: '#g55', textAlign: 'center' }}></p>
                     <br />

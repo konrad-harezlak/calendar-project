@@ -14,6 +14,13 @@ router.post('/login', loginController.loginUser);
 router.get('/login', (req, res) => { 
     console.log("odpoweidz poprawne zarejestrowanie")
 });
+router.get('/login', (req, res) => { 
+    console.log("odpoweidz poprawne zarejestrowanie")
+});
+
+router.get('/', (req, res) => {
+    res.send('Witaj na stronie Y!');
+ });
 /* 
 router.get('/registration',registrationController.registerUser)
 router.get('/login', loginController.loginUser)
