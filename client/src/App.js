@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import {BrowserRouter as Router,Routes,Route} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Registration from './pages/Registration';
 import Recovery from './pages/recovery';
@@ -8,21 +8,24 @@ import Home from './pages/Home';
 import Calendar from './pages/Calendar';
 import Messages from './pages/Messages';
 import Settings from './pages/Settings';
+import Error404 from './pages/Error404';
+import { useAuth } from './pages/AuthContext';
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"></link>
 function App() {
+  const { user } = useAuth();
   return (
     <div className="App">
       <Router>
         <Routes>
-          <Route path='/' exact element={<Login/>}/>
-          <Route path='/registration' element={<Registration/>}/>
-          <Route path='/recovery' element={<Recovery/>}/>
-          <Route path='/home' element={<Home/>}/>
-          <Route path='/messages' element={<Messages/>}/>
-          <Route path='/calendar' element={<Calendar/>}/>
-          <Route path='/settings' element={<Settings/>}/>
-          <Route path='*' />
+          <Route path='/' exact element={<Login />} />
+          <Route path='/registration' element={<Registration />} />
+          <Route path='/recovery' element={<Recovery /> } />
+          <Route path='/home' element={user ? <Home /> : <Login />} />
+          <Route path='/messages' element={user ? <Messages />: <Login />} />
+          <Route path='/calendar' element={user ? <Calendar />:<Login />} />
+          <Route path='/settings' element={user ? <Settings />:<Login />} />
+          <Route path='*' element={<Error404/>}/>
         </Routes>
       </Router>
     </div>

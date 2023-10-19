@@ -14,7 +14,7 @@ class Navigation extends React.Component {
                         <Link to="/home" className='nav_link'><li>Profil</li></Link><Link to="/calendar" className='nav_link'><li>Kalendarz</li></Link><Link to="/messages" className='nav_link'><li>Wiadomości</li></Link>
                     </ul>
                 </div>
-                <div className='settings'>
+                <div className='settings_button'>
                     <Link to='/settings'><FontAwesomeIcon icon={faGear} className='font_icon' /></Link>
                 </div>
             </nav>

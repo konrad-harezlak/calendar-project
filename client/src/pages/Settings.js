@@ -11,7 +11,7 @@ const Settings = () => {
         profilePicture: '',
         password: '',
         email: '',
-        newUsername: '',
+        userName: '', 
     });
 
     const handleChange = (e) => {
