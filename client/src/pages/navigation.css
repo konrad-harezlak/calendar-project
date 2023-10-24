@@ -36,7 +36,7 @@ nav ul li:hover{
     color:white;
 }
 
-.settings .font_icon{
+.settings_button .font_icon{
     position: absolute;
     top:93vh;
     left:1vw;
@@ -44,4 +44,6 @@ nav ul li:hover{
     margin:0;
     color:darkgray;
     padding:0px;
+    display: flex;
+    flex-direction: row;
 }

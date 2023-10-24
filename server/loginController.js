@@ -18,9 +18,12 @@ async function loginUser(req, res) {
       return res.status(401).json({ message: 'Nieprawidłowy userName lub hasło' });
       
     }
+    //tworzymy token
+    const secretKey= 'sekretny_token';
+    const token = jwt.sign({ userId: user._id, userName: user.userName },secretKey, { expiresIn: '1h' });
 
     // Użytkownik zalogowany pomyślnie
-    res.status(200).json({ message: 'Zalogowano pomyślnie', user });
+    res.status(200).json({ message: 'Zalogowano pomyślnie', user,token });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Wystąpił błąd serwera' });

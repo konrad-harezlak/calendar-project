@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import './login.css';
+import { useAuth } from './AuthContext';
 
 const Login = () => {
+    const {login} = useAuth();
     const [loginData, setLoginData] = useState({
         userName: '',
         password: ''
@@ -19,13 +21,20 @@ const navigate = useNavigate();
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:4000/login',loginData,{
+            const response =await axios.post('http://localhost:4000/login',loginData,{
                 headers:{
                     'Content-Type':'application/json'
                 }
             });
             console.log(response.data.message)
-            // Tutaj możesz obsłużyć odpowiedź z backendu, np. zalogować użytkownika w stanie aplikacji
+            
+            const {token,user} = response.data;
+            console.log("user: "+user+' \n token:'+ token)
+
+            localStorage.setItem('token', token);
+            console.log(response.data.message);
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            login(user);
             navigate('/home');
         } catch (error) {
             console.error('Błąd logowania:', error);
