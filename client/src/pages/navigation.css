@@ -39,11 +39,27 @@ nav ul li:hover{
 .settings_button .font_icon{
     position: absolute;
     top:93vh;
-    left:1vw;
+    left:5vw;
     height: 5vh;
     margin:0;
     color:darkgray;
     padding:0px;
-    display: flex;
-    flex-direction: row;
+ 
+}
+.settings_button button{ 
+    position: absolute;
+    top:93vh;
+    left:0vw;
+    height: 5vh;
+    width: 5vw;
+    margin:0;
+    color:#aaa;
+    padding:0px;
+    background-color:#0000 ;
+    border-radius: 5px;
+    border:0px;
+    cursor:pointer;
+}
+.settings_button .button_iocn { 
+    width:10vw;
 }

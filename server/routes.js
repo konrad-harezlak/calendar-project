@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const registrationController = require('./registrationController');
 const loginController = require('./loginController');
+const settingsController = require ('./settingsController');
+const authenticateToken = require('./authenticateToken');
 
 router.post('/registration', registrationController.registerUser);
 
@@ -14,16 +16,11 @@ router.post('/login', loginController.loginUser);
 router.get('/login', (req, res) => { 
     console.log("odpoweidz poprawne zarejestrowanie")
 });
-router.get('/login', (req, res) => { 
-    console.log("odpoweidz poprawne zarejestrowanie")
-});
 
 router.get('/', (req, res) => {
     res.send('Witaj na stronie Y!');
  });
-/* 
-router.get('/registration',registrationController.registerUser)
-router.get('/login', loginController.loginUser)
- */
+router.post('/settings',authenticateToken, settingsController.saveData);
+
 
 module.exports = router;

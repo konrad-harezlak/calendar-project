@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './navigation.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGear } from '@fortawesome/free-solid-svg-icons';
+import { faGear,faSignOut } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from './AuthContext';
 
 //extends React.Component
@@ -21,8 +21,8 @@ const Navigation = ()=>{
                     </ul>
                 </div>
                 <div className='settings_button'>
+                    <button onClick={logout}><FontAwesomeIcon icon={faSignOut} size="3x" className='button_icon'  /></button>
                     <Link to='/settings'><FontAwesomeIcon icon={faGear} className='font_icon' /></Link>
-                    <button onClick={logout}>Wyloguj</button>
                 </div>
             </nav>
         )

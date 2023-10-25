@@ -10,6 +10,8 @@ const Login = () => {
         userName: '',
         password: ''
     });
+    const navigate = useNavigate();
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setLoginData({
@@ -17,7 +19,7 @@ const Login = () => {
             [name]: value
         });
     };
-const navigate = useNavigate();
+
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
@@ -26,13 +28,8 @@ const navigate = useNavigate();
                     'Content-Type':'application/json'
                 }
             });
-            console.log(response.data.message)
-            
             const {token,user} = response.data;
-            console.log("user: "+user+' \n token:'+ token)
-
             localStorage.setItem('token', token);
-            console.log(response.data.message);
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             login(user);
             navigate('/home');

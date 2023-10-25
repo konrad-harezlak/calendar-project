@@ -10,26 +10,27 @@ import Calendar from './pages/Calendar';
 import Messages from './pages/Messages';
 import Settings from './pages/Settings';
 import Error404 from './pages/Error404';
-import { useAuth } from './pages/AuthContext';
+import { useAuth, AuthProvider } from './pages/AuthContext';
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"></link>
 function App() {
   const { user } = useAuth();
-  console.log("ustawione cokolwiek" + user);
   return (
     <div className="App">
-      <Router>
-        <Routes>
-          <Route path='/' exact element={user ? <Home /> : <Login />} />
-          <Route path='/registration' element={user ? <Home /> : <Registration />} />
-          <Route path='/recovery' element={user ? <Home /> : <Recovery />} />
-          <Route path='/home' element={user ? <Home /> : <Login />} />
-          <Route path='/messages' element={user ? <Messages /> : <Login />} />
-          <Route path='/calendar' element={user ? <Calendar /> : <Login />} />
-          <Route path='/settings' element={user ? <Settings /> : <Login />} />
-          <Route path='*' element={<Error404 />} />
-        </Routes>
-      </Router>
+      
+        <Router>
+          <Routes>
+            <Route path='/' exact element={user ? <Home /> : <Login />} />
+            <Route path='/registration' element={user ? <Home /> : <Registration />} />
+            <Route path='/recovery' element={user ? <Home /> : <Recovery />} />
+            <Route path='/home' element={user ? <Home /> : <Login />} />
+            <Route path='/messages' element={user ? <Messages /> : <Login />} />
+            <Route path='/calendar' element={user ? <Calendar /> : <Login />} />
+            <Route path='/settings' element={user ? <Settings /> : <Login />} />
+            <Route path='*' element={<Error404 />} />
+          </Routes>
+        </Router>
+
     </div>
   );
 }

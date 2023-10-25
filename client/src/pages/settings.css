@@ -71,15 +71,26 @@
     font-weight: 600;
 }
 .button_container input{
-    width: 10%;
-    height: 35%;
+    width: 100%;
+    height: 100%;
     border-radius: 20px;
     border:2px solid black;
     background-color: #f44;
     font-size:1.7rem;
     font-weight: 600;
     margin-bottom:0;
-    margin-right:10px;
+    
     color:black;
 
 }
+.button_container a{
+    width: 10%;
+    height: 35%;
+    margin-right:10px;
+  
+}
+.alert_wrong{
+    font-size: '2vh';
+    color: red;
+    text-align: 'center';
+    }

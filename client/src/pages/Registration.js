@@ -66,7 +66,7 @@ const Registration = () => {
                         <p> Powtórz Hasło: </p>
                         <input type='password' placeholder='Powtórz hasło...' onChange={handleInputChange} name='password2' value={userData.password2} />
                     </label>
-                    <p id='alert' style={{ fontSize: '2vh', color: '#g55', textAlign: 'center' }}></p>
+                    <p id='alert' className='alert_wrong' ></p>
                     <br />
                     <button type='submit' className='button_login'>Submit!</button>
                 </form>

@@ -2,3 +2,8 @@
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
 }
+.alert_wrong{
+font-size: '2vh';
+color: '#g55';
+text-align: 'center';
+}

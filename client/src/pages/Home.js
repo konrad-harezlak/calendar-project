@@ -2,33 +2,25 @@ import React from 'react';
 import './home.css'
 import Navigation from './Navigation';
 import { useAuth } from './AuthContext';
-import { Navigate } from 'react-router-dom';
 
 
 const Home = () => {
     const { user } = useAuth();
-    if (!user) {
-        return <Navigate to="/" />;
-    }
     return (
         <div className='home_page'>
             <Navigation />
             <div className='home_container'>
-                {user ? (
-                    <div className='profil'>
-                        <p>Imie i nazwisko</p>
-                        <p>E-mail</p>
-                        <p>Stanowisko</p>
-                        <p>Stopień doświadczenia</p>
-                    </div>
-                ) : (
-                    <p>Nie jesteś zalogowany. Zaloguj się, aby zobaczyć swoje dane.</p>
-                )}
+                <div className='profil'>
+                    <p>Imię i nazwisko: {user.firstName ?`${user.firstName}`:'-'} {user.lastName ? `${user.lastName}` : '-'}</p>
+                    <p>E-mail: {user.email}</p>
+                    <p>Stanowisko: {user.position || '-'}</p>
+                    <p>Stopień doświadczenia: {user.experienceLevel || '-'}</p>
+                </div>
                 <div className='profil_img'>
 
                 </div>
                 <div className='profil_dec'>
-                    lorem5 lorem5
+                    {user.description || 'Brak opisu użytkownika'}
                 </div>
 
             </div>
