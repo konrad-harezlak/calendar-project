@@ -24,9 +24,16 @@
 }
 .profil_img{
     background-color: black;
-    width: 20vw;
+    width: 18vw;
     height: 25vh;
     margin:0;
+    overflow: hidden; 
+    border-radius: 50%;
+}
+.profil_img img {
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
 }
 .profil_dec{
     width:100%;

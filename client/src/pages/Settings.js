@@ -44,6 +44,9 @@ const Settings = () => {
             return;
         } else
             setShowPasswordError(false);
+        console.log("tutaj" + userData.firstName)
+        console.log(userData.firstName)
+        console.log(userData.password)
         const formData = new FormData();
         formData.append("firstName", userData.firstName);
         formData.append("lastName", userData.lastName);
@@ -52,20 +55,19 @@ const Settings = () => {
         formData.append("description", userData.description);
         formData.append("profilePicture", userData.profilePicture);
         formData.append("newPassword", userData.newPassword);
-        formData.append("newEmail", userData.email);
-        formData.append("newUserName", userData.userName);
+        formData.append("email", userData.email);
+        formData.append("userName", userData.userName);
         formData.append("password", userData.password);
-
         try {
             // Wyślij dane do serwera za pomocą axios
             const token = localStorage.getItem('token');
-            const response = await axios.post('http://localhost:4000/settings', formData, {
+            let response = await axios.post('http://localhost:4000/settings', formData,{
                 headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `${token}`
-                },
-            });
-            login(response.data.user)
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `${token}`
+            }},
+         );
+            login(response.data.user);
             navigate('/home');
         } catch (error) {
             console.error('Błąd podczas zapisywania danych:', error);
@@ -76,7 +78,7 @@ const Settings = () => {
     return (
         <div className='settings_page'>
             <div className='settings_container'>
-                <form method='POST' onSubmit={handleSubmit}>
+                <form encType="multipart/form-data" method='POST' onSubmit={handleSubmit} >
                     <div className='col1'>
                         <label>
                             Imię:
@@ -106,7 +108,7 @@ const Settings = () => {
                     <div className='col2'>
                         <label>
                             Nowe hasło:
-                            <input type='password' name='password' value={userData.newPassword} onChange={handleChange} />
+                            <input type='password' name='newPassword' value={userData.newPassword} onChange={handleChange} />
                         </label>
                         <label>
                             Nowy email:
@@ -114,7 +116,7 @@ const Settings = () => {
                         </label>
                         <label>
                             Nowy loginu:
-                            <input type='text' name='newUserName' value={userData.userName} onChange={handleChange} />
+                            <input type='text' name='userName' value={userData.userName} onChange={handleChange} />
                         </label>
                         <label>
                             Hasło:
