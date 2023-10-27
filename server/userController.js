@@ -1,16 +1,11 @@
-const express = require('express');
-const router = express.Router();
-const User = require('./userModel');
+const User = require('./userModel'); 
 
-// Endpoint do zapisywania danych użytkownika do bazy danych
-router.post('/registration', async (req, res) => {
-    try {
-        const user = new User(req.body);
-        await user.save();
-        res.status(201).json(user);
-      } catch (error) {
-        res.status(400).json({ error: error.message });
-      }
-    });
-    
-    module.exports = router;
+exports.getUsers = async (req, res) => {
+  try {
+    const users = await User.find({}, 'userName firstName lastName');
+    res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Wystąpił błąd podczas pobierania użytkowników.' });
+  }
+};

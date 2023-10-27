@@ -11,7 +11,6 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/', routes);
-app.use('/', userController)
 
 app.use(express.urlencoded({ extended: false }));
 
