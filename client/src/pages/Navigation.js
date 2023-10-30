@@ -5,12 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear,faSignOut } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from './AuthContext';
 
-//extends React.Component
 
 const Navigation = ()=>{
-        const { user, login, logout } = useAuth();
-        if (!user) 
-            return <div>Nie jesteś zalogowany</div>;
+        const { logout } = useAuth();
         return (
             <nav className='navigation'>
                 <div className='nav_container'>

@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
 router.post('/settings', authenticateToken, settingsController.saveData);
 
 router.post('/messages', authenticateToken, messageController.sendMessage);
-router.get('/messages', authenticateToken, messageController.getMessages);
+router.get('/messages/:recipientId', authenticateToken, messageController.getMessages);
 
 router.get('/users', usersController.getUsers)
 

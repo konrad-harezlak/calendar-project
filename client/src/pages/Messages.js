@@ -9,18 +9,22 @@ const Messages = () => {
     const [message, setMessage] = useState('');
     const [users, setUsers] = useState([]);
     let [recipient, setRecipient] = useState('');
+    const [messages, setMessages] = useState([]);
+
     const handleSendMessage = async () => {
         try {
             const token = localStorage.getItem('token');
             let response = await axios.post('http://localhost:4000/messages', {
                 recipient: recipient._id,
                 content: message,
-            },{
-                headers:{
+            }, {
+                headers: {
                     'Authorization': `${token}`
                 }
-        });
+            });
             console.log("wiadomosc wysłana", response.data);
+            setMessages([...messages, response.data]);
+            setMessage('');
         } catch (error) {
 
             console.error("bład podczas wysylania wiadomosci: ", error)
@@ -42,6 +46,25 @@ const Messages = () => {
         fetchUsers();
     }, []);
 
+    useEffect(() => {
+        const fetchMessages = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await axios.get(`http://localhost:4000/messages/${recipient._id}`, {
+                    headers: {
+                        'Authorization': `${token}`
+                    }
+                });
+                setMessages(response.data);
+            } catch (error) {
+                console.error("Błąd podczas pobierania wiadomości: ", error);
+            }
+        };
+
+        if (recipient._id) {
+            fetchMessages();
+        }
+    }, [recipient._id]);
     return (
         <div className='messages_page'>
             <Navigation />
@@ -51,12 +74,16 @@ const Messages = () => {
                         {recipient.firstName || recipient.lastName ? (
                             <h2>{recipient.firstName} {recipient.lastName}</h2>
                         ) : (
-                           <h2> {recipient.userName}</h2>)}
+                            <h2> {recipient.userName}</h2>)}
                     </p>
                 </div>
 
                 <div className='messages'>
-
+                    {messages.map(message => (
+                        <div key={message._id} className={message.sender === recipient._id ?'received-message' : 'sent-message' }>
+                            {message.content}
+                        </div>
+                    ))}
                 </div>
                 <div className='write_message'>
                     <input
