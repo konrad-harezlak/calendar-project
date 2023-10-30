@@ -18,8 +18,12 @@ const Navigation = ()=>{
                     </ul>
                 </div>
                 <div className='settings_button'>
-                    <button onClick={logout}><FontAwesomeIcon icon={faSignOut} size="3x" className='button_icon'  /></button>
-                    <Link to='/settings'><FontAwesomeIcon icon={faGear} className='font_icon' /></Link>
+                    <button onClick={logout}>
+                        <FontAwesomeIcon icon={faSignOut} className='font_icon'  />
+                    </button>
+                    <Link to='/settings'>
+                        <FontAwesomeIcon icon={faGear} size='3x' className='font_icon' />
+                    </Link>
                 </div>
             </nav>
         )

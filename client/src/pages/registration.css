@@ -1,15 +1,82 @@
-.registration_page{
+.registration_page {
     background-color: #777;
     height: 100vh;
-    padding: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.registration_page .form{
-    border: 1px black solid;
-    width:22vw;
-    height: 60vh;
-    margin:0 auto;
-    background-color: #55b;
+
+.registration_page .form {
+    border: 1px solid black;
+    width: 22vw;
+    height: auto;
+    max-height: 60vh;
+    margin: 0 auto;
+    background-color: #2c3e50;
     border-radius: 30px;
     padding: 15px;
     text-align: center;
+    overflow-y: auto;
+}
+
+.registration_page .form p {
+    margin: 8px;
+    margin-left: 20px;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-align: start;
+}
+
+.registration_page .form input {
+    border-radius: 20px;
+    height: 2.5rem;
+    padding: 5px;
+    font-size: 1.2rem;
+    width: 15vw;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.registration_page .alert_wrong {
+    font-size: 1rem;
+    color: red;
+    text-align: center;
+}
+
+.registration_page .form .button_login {
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+    height: 2.5rem;
+    width: 6vw;
+    max-width: 40%;
+    border-radius: 20px;
+    font-size: 1rem;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.registration_page .form .button_login:hover {
+    background-color: #45a049;
+}
+
+.registration_page .p_link {
+    text-align: end;
+    margin-top: 1rem;
+}
+
+.registration_page .link {
+    color: white;
+    font-size: 1rem;
+}
+
+@media (max-width: 1300px) {
+    .registration_page .form .button_login {
+        margin: 1rem auto;
+        height: 4vh;
+        width: 10vw;
+        max-width: 40%;
+    }
 }

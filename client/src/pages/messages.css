@@ -1,3 +1,5 @@
+/* messages.css */
+
 .messages_page {
     display: flex;
     flex-direction: row;
@@ -7,28 +9,58 @@
     margin: 2vh 2vw;
     width: 66vw;
     height: 96vh;
-    background-color: #ccc;
+    background-color: #eee; 
     border-radius: 25px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
-.messages_header{
-    width:100%;
-    background-color: lightblue;
+
+.messages_header {
+    width: 100%;
+    background-color: #4caf50; /* Zielone tło dla nagłówka */
     height: 5vh;
     border-top-right-radius: 25px;
     border-top-left-radius: 25px;
     display: flex;
     justify-content: center;
+    align-items: center;
+}
 
+.messages_header h2 {
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-size: 1.5rem;
 }
-.messages_header p{
-    display: flex;
-}
-.messages_header h2{
-margin:0;
-padding:0;
-}
+
 .messages {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
     height: 86%;
+}
+
+.sent-message {
+    background-color: #4caf50;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px 0;
+    align-self: flex-end;
+    max-width: 70%;
+}
+
+.received-message {
+    background-color: #ddd;
+    color: black;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px 0;
+    align-self: flex-start;
+    max-width: 70%;
 }
 
 .write_message {
@@ -39,81 +71,79 @@ padding:0;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-
+    background-color: white;
 }
 
 .write_message input {
-    border-radius: 30px;
     width: 70%;
     text-align: center;
-    border: none;
+    border: none; 
+    outline: none; 
     height: 75%;
     margin-right: 15px;
     font-size: 1rem;
     font-weight: 600;
-
 }
 
 .write_message button {
     border-radius: 25px;
     width: 9%;
     height: 75%;
+    background-color: #4caf50;
+    border: none;
+    cursor: pointer;
 }
 
 .write_message .font {
     height: 70%;
-
+    color: white;
 }
 
 .users_container {
     width: 15vw;
     height: 100vh;
-    background-color: #55b;
+    background-color: #2c3e50;
     padding: 20px;
     overflow-y: auto;
     box-shadow: 0 0 15px rgba(0, 0, 0, 1);
 }
 
 .users_header {
-    background: #ccc;
+    background: #4caf50;
     width: 8vw;
     height: 5vh;
-    border-radius: 12px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     padding: 10px;
     margin-bottom: 20px;
+    border-radius: 10px;
 }
 
 .users_header p {
-    font-size: 1.5rem;
-    color: black;
+    font-size: 1.2rem;
+    color: white;
     margin: 0;
-    font-weight: 600;
-
 }
 
-.users_container .user { 
+.users_container .user {
     background-color: #eee;
     border-radius: 10px;
     margin-bottom: 10px;
     padding: 15px;
     display: flex;
     align-items: center;
-    box-shadow: 0 0 5px rgba(0, 0, 0,0.8);
-    flex-wrap:wrap;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    flex-wrap: wrap;
     flex-direction: column;
-
 }
+
 .users_container .user span {
     font-size: 1.2rem;
     margin-right: 10px;
     text-align: center;
-  }
-
+}
 
 .users_container ul {
     margin: 0;
@@ -125,12 +155,12 @@ padding:0;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-  }
+}
 
-  .users_container .user .user-details > span {
-    width:100%;
+.users_container .user .user-details>span {
+    width: 100%;
+}
 
-  }
 .users_container .user .user-actions button {
     background-color: #3498db;
     color: white;
@@ -139,9 +169,8 @@ padding:0;
     padding: 8px 15px;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
+}
 
 .users_container .user .user-actions button:hover {
     background-color: #2980b9;
-  }
-  
+}

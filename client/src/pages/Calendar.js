@@ -7,7 +7,6 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import Day from './day';
 const Calendar = () => {
 
-    //zmiana uzytkownika
     const [selectedOption, setSelectedOption] = useState('');
     const handleSelectChange = (event) => {
         setSelectedOption(event.target.value);
