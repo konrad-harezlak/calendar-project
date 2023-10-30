@@ -24,8 +24,8 @@ router.get('/', (req, res) => {
 });
 router.post('/settings', authenticateToken, settingsController.saveData);
 
-router.post('/messages', messageController.sendMessage);
-router.get('/messages/:recipientId', messageController.getMessages);
+router.post('/messages', authenticateToken, messageController.sendMessage);
+router.get('/messages', authenticateToken, messageController.getMessages);
 
 router.get('/users', usersController.getUsers)
 

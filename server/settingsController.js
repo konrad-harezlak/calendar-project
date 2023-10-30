@@ -23,10 +23,6 @@ async function saveData(req, res) {
 
     const userData = req.body;
 
-
-
-
-
     try {
         const passwordMatch = await bcrypt.compare(userData.password, user.password);
         if (!passwordMatch) {

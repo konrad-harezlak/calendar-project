@@ -4,20 +4,22 @@ import './messages.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { useAuth } from './AuthContext'
 
 const Messages = () => {
     const [message, setMessage] = useState('');
-    const { login } = useAuth();
     const [users, setUsers] = useState([]);
     let [recipient, setRecipient] = useState('');
     const handleSendMessage = async () => {
         try {
+            const token = localStorage.getItem('token');
             let response = await axios.post('http://localhost:4000/messages', {
-                sender: login,
-                recipient: recipient.userName,
+                recipient: recipient._id,
                 content: message,
-            });
+            },{
+                headers:{
+                    'Authorization': `${token}`
+                }
+        });
             console.log("wiadomosc wysłana", response.data);
         } catch (error) {
 
@@ -35,7 +37,6 @@ const Messages = () => {
             } catch (error) {
                 console.error("Błąd podczas pobierania użytkowników: ", error);
             }
-            console.log(users)
         };
 
         fetchUsers();
