@@ -58,59 +58,46 @@ const Calendar = () => {
     const showDaysInMonth = () => {
         let FirstDay = getFirstDayOfMonth(year, month);
         let DaysOfMonth = getLastDayOfMonth(year, month);
-        let i=0,j=1;
-        
-        console.log(DaysOfMonth);
-        console.log(days[FirstDay]);
-        console.log(FirstDay);
+        let i = 0, x = 1;
         let arr = [];
-
-    switch(FirstDay){      
-        case 0:
-            arr.push(<Day day={checkLastDayOfLastMonth(year, month)} daysOfMonth={6-j} dayOfWeek={days[j]} />)
-            j++;
-        case 6:
-            arr.push(<Day day={checkLastDayOfLastMonth(year, month)} daysOfMonth={6-j} dayOfWeek={days[j]} />)
-            j++
-        case 5:
-            arr.push(<Day day={checkLastDayOfLastMonth(year, month)} daysOfMonth={6-j} dayOfWeek={days[j]} />)
-            j++
-        case 4:
-            arr.push(<Day day={checkLastDayOfLastMonth(year, month)} daysOfMonth={6-j} dayOfWeek={days[j]} />)
-            j++
-        case 3:
-            arr.push(<Day day={checkLastDayOfLastMonth(year, month)} daysOfMonth={6-j} dayOfWeek={days[j]} />)
-            j++
-        case 2:
-            arr.push(<Day day={checkLastDayOfLastMonth(year, month)} daysOfMonth={6-j} dayOfWeek={days[j]} />)
-            j++
-        case 1:
-            while (i < DaysOfMonth || j % 7 !== 1) {
-                if (i >= DaysOfMonth)
-                    arr.push(<Day day={i} daysOfMonth={DaysOfMonth} dayOfWeek={days[j % 7]} />)
-                else
-                    arr.push(<Day day={i} dayOfWeek={days[j % 7]} />)
-                j++;
-                i++;
-
-            }
-            console.log("wykonuje się")
+        FirstDay = (FirstDay == 0 ? 7 : FirstDay)
+        while (i < FirstDay - 1) {
+            arr.push(<Day
+                key={i}
+                day={FirstDay - i}
+                daysOfMonth={checkLastDayOfLastMonth(year, month)}
+                option={0}
+                 />)
+            i++;
         }
-       
+        while (i - FirstDay + 1 < DaysOfMonth) {
+            arr.push(<Day
+                key={i}
+                day={i - FirstDay + 3}
+                month={month}
+                year={year}
+                daysOfMonth={checkLastDayOfLastMonth(year, month)}
+                option={1} dayOfWeek={days[(i + 1) % 7]}
+                />)
+            i++;
+        }
+        while (i % 7 !== 0) {
+            arr.push(<Day
+                key={i}
+                day={x}
+                daysOfMonth={checkLastDayOfLastMonth(year, month)}
+                option={2}
+                />)
+            i++;
+            x++;
+        }
         setDayElements(arr);
     }
-
-
-
 
     useEffect(() => {
         dateElement = document.getElementById('date');
         showDaysInMonth();
-        return () => {
-        };
     }, [month]);
-
-
 
     return (
         <div className='calendar_page'>
@@ -137,9 +124,16 @@ const Calendar = () => {
                         {selectedOption && <h4>Wybrano: {selectedOption}</h4>}
                     </div>
                 </header>
-
-
-                <div className='calendar_grid' >
+                <div className='days_of_week'>
+                    <div>Poniedziałek</div>
+                    <div>Wtorek</div>
+                    <div>Środa</div>
+                    <div>Czwartek</div>
+                    <div>Piątek</div>
+                    <div>Sobota</div>
+                    <div>Niedziela</div>
+                </div>
+                <div className="calendar_grid">
                     {dayElements}
                 </div>
             </div>
