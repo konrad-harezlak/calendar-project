@@ -67,7 +67,7 @@ const Calendar = () => {
                 day={FirstDay - i}
                 daysOfMonth={checkLastDayOfLastMonth(year, month)}
                 option={0}
-                 />)
+            />)
             i++;
         }
         while (i - FirstDay + 1 < DaysOfMonth) {
@@ -78,7 +78,7 @@ const Calendar = () => {
                 year={year}
                 daysOfMonth={checkLastDayOfLastMonth(year, month)}
                 option={1} dayOfWeek={days[(i + 1) % 7]}
-                />)
+            />)
             i++;
         }
         while (i % 7 !== 0) {
@@ -87,7 +87,7 @@ const Calendar = () => {
                 day={x}
                 daysOfMonth={checkLastDayOfLastMonth(year, month)}
                 option={2}
-                />)
+            />)
             i++;
             x++;
         }
@@ -106,22 +106,12 @@ const Calendar = () => {
                 <header>
                     <div className='calendar_date'>
 
-                        <button className='arrows' onClick={() => { handleClickPrev(); showDaysInMonth(); }}><FontAwesomeIcon className='arrows_icon' icon={faChevronLeft} /></button>
+                        <button className='calendar-button' onClick={() => { handleClickPrev(); showDaysInMonth(); }}><FontAwesomeIcon className='arrows_icon' icon={faChevronLeft} /></button>
                         <div id='date'><h2>{months[month]}.{year}</h2></div>
-                        <button className='arrows' onClick={() => { handleClickNext(); showDaysInMonth(); }}><FontAwesomeIcon className='arrows_icon' icon={faChevronRight} /></button>
+                        <button className='calendar-button' onClick={() => { handleClickNext(); showDaysInMonth(); }}><FontAwesomeIcon className='arrows_icon' icon={faChevronRight} /></button>
 
                     </div>
-                    <div className='calendar_user'>
-                        <h3>Wybierz Uzytkownika:</h3>
-                        <div className='select_container'>
-                            <select value={selectedOption} onChange={handleSelectChange}>
-                                <option value="">Wybierz...</option>
-                                <option value="opcja1">Opcja 1</option>
-                                <option value="opcja2">Opcja 2</option>
-                                <option value="opcja3">Opcja 3</option>
-                            </select>
-                        </div>
-                        {selectedOption && <h4>Wybrano: {selectedOption}</h4>}
+                    <div className='calendar_user'>          
                     </div>
                 </header>
                 <div className='days_of_week'>

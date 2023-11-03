@@ -5,16 +5,15 @@ const loginController = require('./loginController');
 const settingsController = require('./settingsController');
 const authenticateToken = require('./authenticateToken');
 const messageController = require('./messagesController');
-const usersController = require('./userController')
+const usersController = require('./userController');
+const meetingController = require('./meetingController');
 
-    router.post('/registration', registrationController.registerUser);
-
+router.post('/registration', registrationController.registerUser);
 router.get('/registration', (req, res) => {
     console.log("poprawnie zarejestrowano")
 })
 
 router.post('/login', loginController.loginUser);
-
 router.get('/login', (req, res) => {
     console.log("odpoweidz poprawne zarejestrowanie")
 });
@@ -28,5 +27,9 @@ router.post('/messages', authenticateToken, messageController.sendMessage);
 router.get('/messages/:recipientId', authenticateToken, messageController.getMessages);
 
 router.get('/users', usersController.getUsers)
+
+router.post('/meetings', meetingController.createMeeting);
+router.get('/meetings', meetingController.readMeetings);
+
 
 module.exports = router;

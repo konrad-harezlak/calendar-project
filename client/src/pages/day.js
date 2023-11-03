@@ -1,18 +1,25 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import './day.css'
 import DaySchedule from './daySchedule';
+import axios from 'axios';
+
 const Day = ({ day, daysOfMonth, option,dayOfWeek,month,year }) => {
   let [isModalVisible, setModalVisible] = useState(false);
-  const [meetings, setMeetings] = useState([]);
-  const [newMeeting, setNewMeeting] = useState('');
-  
-  const handleScheduleMeeting = (event) => {
-    event.preventDefault();
-    if (newMeeting) {
-      setMeetings([...meetings, newMeeting]);
-      setNewMeeting('');
-    }
-  };
+  const [usersList, setUsersList] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get('/users');
+        setUsersList(response.data);
+      } catch (error) {
+        console.error('Błąd podczas pobierania użytkowników:', error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
 
   let number;
   if (option == 0) number = daysOfMonth - day + 2;
@@ -36,11 +43,9 @@ const Day = ({ day, daysOfMonth, option,dayOfWeek,month,year }) => {
       {isModalVisible && (
         <DaySchedule
           day={day-1}
-          month={month+1}
-          year={year}
-          meetings={meetings}
+          usersList={usersList}
           onClose={() => {setModalVisible(false)}}
-          onScheduleMeeting={handleScheduleMeeting}
+          selectedDate={[year,month+1,number]}
         />
       )}
     </div>
