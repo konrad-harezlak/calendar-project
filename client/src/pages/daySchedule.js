@@ -58,6 +58,18 @@ const DaySchedule = ({ onClose, selectedDate, usersList }) => {
         onClose();
     };
 
+    const handleDeleteMeeting = async (meetingId) => {
+        try {
+            await axios.delete(`http://localhost:4000/meetings/${meetingId}`);
+            const updatedMeetings = meetings.filter(meeting => meeting._id !== meetingId);
+            setMeetings(updatedMeetings);
+            console.log('Spotkanie usunięte:', meetingId);
+        } catch (error) {
+            console.error('Błąd podczas usuwania spotkania:', error);
+        }
+    };
+
+
     return (
         <div className="fullscreen-day-schedule">
         <div className="day-schedule">
@@ -73,8 +85,7 @@ const DaySchedule = ({ onClose, selectedDate, usersList }) => {
                                 <span className="participants">Participants: {meeting.participants.join(', ')}</span>
                             </div>
                             <div className="meeting-actions">
-                                <button type="button">Edytuj</button>
-                                <button type="button">Usuń</button>
+                                <button type="button" onClick={() => handleDeleteMeeting(meeting._id)}>Usuń</button>
                             </div>
                         </li>
                     ))}

@@ -68,32 +68,34 @@ const Messages = () => {
     return (
         <div className='messages_page'>
             <Navigation />
-            <div className='messages_container'>
-                <div className='messages_header'>
-                    <p>
-                        {recipient.firstName || recipient.lastName ? (
-                            <h2>{recipient.firstName} {recipient.lastName}</h2>
-                        ) : (
-                            <h2> {recipient.userName}</h2>)}
-                    </p>
-                </div>
+            {recipient && (
+                <div className='messages_container'>
+                    <div className='messages_header'>
+                        <p>
+                            {recipient.firstName || recipient.lastName ? (
+                                <h2>{recipient.firstName} {recipient.lastName}</h2>
+                            ) : (
+                                <h2>{recipient.userName}</h2>)}
+                        </p>
+                    </div>
 
-                <div className='messages'>
-                    {messages.map(message => (
-                        <div key={message._id} className={message.sender === recipient._id ?'received-message' : 'sent-message' }>
-                            {message.content}
-                        </div>
-                    ))}
+                    <div className='messages'>
+                        {messages.map(message => (
+                            <div key={message._id} className={message.sender === recipient._id ? 'received-message' : 'sent-message'}>
+                                {message.content}
+                            </div>
+                        ))}
+                    </div>
+                    <div className='write_message'>
+                        <input
+                            type='text'
+                            placeholder='Napisz wiadomość..'
+                            value={message}
+                            onChange={(e => setMessage(e.target.value))}></input>
+                        <button onClick={handleSendMessage}> <FontAwesomeIcon className='font' icon={faPaperPlane} /></button>
+                    </div>
                 </div>
-                <div className='write_message'>
-                    <input
-                        type='text'
-                        placeholder='Napisz wiadomość..'
-                        value={message}
-                        onChange={(e => setMessage(e.target.value))}></input>
-                    <button onClick={handleSendMessage}> <FontAwesomeIcon className='font' icon={faPaperPlane} /></button>
-                </div>
-            </div>
+            )}
             <div className='users_container'>
                 <div className='users_header'>
                     <p>Czaty</p>
