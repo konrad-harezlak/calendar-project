@@ -23,7 +23,7 @@ const DaySchedule = ({ onClose, selectedDate, usersList }) => {
         };
 
         fetchMeetings();
-    }, [selectedDate, response]);
+    }, [formattedDate]);
 
     const handleScheduleMeeting = async (event) => {
         event.preventDefault();

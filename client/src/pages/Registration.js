@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './registration.css';
 import axios from 'axios'
@@ -25,7 +25,6 @@ const Registration = () => {
         if (userData.password !== userData.password2) {
             console.log('Hasło i powtórzone hasło nie są zgodne.');
             alert.innerHTML += 'Hasła nie są takie same!';
-            console.log(userData.password + " - " + userData.password2)
             return;
         }   else 
             alert.innerHTML = '';

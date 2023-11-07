@@ -10,7 +10,7 @@ import Calendar from './pages/Calendar';
 import Messages from './pages/Messages';
 import Settings from './pages/Settings';
 import Error404 from './pages/Error404';
-import { useAuth, AuthProvider } from './pages/AuthContext';
+import { useAuth } from './pages/AuthContext';
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"></link>
 function App() {
