@@ -20,19 +20,22 @@ The project is divided into different sections:
 
 - **Registration:** Users can create a new account with their email and password.
 - **Login:** Registered users can log in to their accounts securely.
-  ![image](https://github.com/konrad-harezlak/calendar-project/assets/146349083/19a2c29f-f51e-41cf-8f5e-dda51b6b316e)
-
+![image](https://github.com/konrad-harezlak/calendar-project/assets/146349083/4f53ebc7-33eb-4c19-b869-ea041e9415e6)
 
 ### Profile
-
+  
 - **Home:** Users can view their profile information and basic details.
-  ![image](https://github.com/konrad-harezlak/calendar-project/assets/146349083/69f4201e-8b90-4578-aac7-86a560a5926e)
+  ![image](https://github.com/konrad-harezlak/calendar-project/assets/146349083/53d94ef0-4520-49c9-878b-722a1289fbc0)
+
 - **Calendar:** A feature allowing users to manage appointments and schedule future meetings with other users.
- ![image](https://github.com/konrad-harezlak/calendar-project/assets/146349083/ba97ffae-8c41-4b18-bd40-80e2f612d0a6)
+ ![image](https://github.com/konrad-harezlak/calendar-project/assets/146349083/4adbd1a8-15ae-45c7-8239-b98b46436f01)
+
 - **Messages:** Users can send and receive messages with other users.
-  ![image](https://github.com/konrad-harezlak/calendar-project/assets/146349083/074348f5-93c3-4928-9e59-592caac42704)
+ ![image](https://github.com/konrad-harezlak/calendar-project/assets/146349083/69c3ec59-0436-4f81-9874-952cfcf48a59)
+
 
 - **Settings:** Options for users to change their password and profile picture.
+![image](https://github.com/konrad-harezlak/calendar-project/assets/146349083/ee17dad2-bc79-4507-9836-9ec2fde680f0)
 
 ### Project Structure
 
