@@ -32,7 +32,6 @@ const Messages = () => {
     }
 
 
-    //Fetching users from the database
     useEffect(() => {
         const fetchUsers = async () => {
             try {

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const DaySchedule = ({ onClose, selectedDate, usersList }) => {
+const DaySchedule = ({ onClose, selectedDate }) => {
     const [meetingTitle, setMeetingTitle] = useState('');
     const [selectedTime, setSelectedTime] = useState('');
     const [selectedParticipant, setSelectedParticipant] = useState('');
     const [participantsList, setParticipantsList] = useState([]);
     const [meetings, setMeetings] = useState([]);
+    const [users, setUsers] = useState([]);
     let [response] = useState('');
     let [formattedDate] = useState(new Date(selectedDate[0], selectedDate[1] - 1, selectedDate[2]))
     useEffect(() => {
@@ -24,6 +25,19 @@ const DaySchedule = ({ onClose, selectedDate, usersList }) => {
         fetchMeetings();
     }, [formattedDate]);
 
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                let response = await axios.get('http://localhost:4000/users');
+                setUsers(response.data);
+            } catch (error) {
+                console.error("Błąd podczas pobierania użytkowników: ", error);
+            }
+        };
+
+        fetchUsers();
+    }, []);
+
     const handleScheduleMeeting = async (event) => {
         event.preventDefault();
         if (!meetingTitle || !selectedTime || participantsList.length <= 0) {
@@ -31,7 +45,7 @@ const DaySchedule = ({ onClose, selectedDate, usersList }) => {
             return;
         }
         try {
-            // const formattedDate = new Date(selectedDate[0], selectedDate[1]-1, selectedDate[2]+1);
+           
             console.log(formattedDate);
             response = await axios.post('http://localhost:4000/meetings', {
                 title: meetingTitle,
@@ -112,7 +126,7 @@ const DaySchedule = ({ onClose, selectedDate, usersList }) => {
                     onChange={(e) => setSelectedParticipant(e.target.value)}
                 >
                     <option value="">Wybierz uczestnika</option>
-                    {usersList.map((user) => (
+                    {users.map((user) => (
                         <option key={user._id} value={user.userName}>
                             {user.userName} {user.firstName} {user.lastName}
                         </option>

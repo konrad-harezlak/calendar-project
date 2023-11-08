@@ -5,22 +5,6 @@ import axios from 'axios';
 
 const Day = ({ day, daysOfMonth, option,dayOfWeek,month,year }) => {
   let [isModalVisible, setModalVisible] = useState(false);
-  const [usersList, setUsersList] = useState([]);
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get('/users');
-        setUsersList(response.data);
-      } catch (error) {
-        console.error('Błąd podczas pobierania użytkowników:', error);
-      }
-    };
-
-    fetchUsers();
-  }, []);
-
-
   let number;
   if (option === 0) number = daysOfMonth - day + 2;
   else if (option === 1) number = day - 1;
@@ -43,7 +27,6 @@ const Day = ({ day, daysOfMonth, option,dayOfWeek,month,year }) => {
       {isModalVisible && (
         <DaySchedule
           day={day-1}
-          usersList={usersList}
           onClose={() => {setModalVisible(false)}}
           selectedDate={[year,month+1,number]}
         />
