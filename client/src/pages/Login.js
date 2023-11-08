@@ -10,6 +10,8 @@ const Login = () => {
         userName: '',
         password: ''
     });
+    const [errorMessage, setErrorMessage] = useState('');
+
     const navigate = useNavigate();
 
     const handleInputChange = (e) => {
@@ -36,7 +38,7 @@ const Login = () => {
         } catch (error) {
             console.error('Błąd logowania:', error);
             if (error.response && error.response.status === 401) {
-                console.log('Błąd logowania: Nieprawidłowy login lub hasło.');
+                setErrorMessage('Zły Login lub Hasło.'); 
             } else {
                 console.error('Błąd logowania:', error);
             }
@@ -69,6 +71,7 @@ const Login = () => {
                     <br />
                     <button type='submit' className='button_login'>Submit!</button>
                 </form>
+                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                 <p className='p_link'><Link to="/registration" className='link'>Zarejestruj się!</Link></p>
                 <p className='p_link'><Link to="/recovery" className='link'>Zapomniałem hasła</Link></p>
             </div>

@@ -11,7 +11,6 @@ const DaySchedule = ({ onClose, selectedDate, usersList }) => {
     let [formattedDate] = useState(new Date(selectedDate[0], selectedDate[1] - 1, selectedDate[2]))
     useEffect(() => {
         const fetchMeetings = async () => {
-            //let formattedDate=new Date(selectedDate[0], selectedDate[1]-1, selectedDate[2]);
             try {
                 let url = `http://localhost:4000/meetings?date=${formattedDate.toUTCString()}`
                 let response = await axios.get(url);

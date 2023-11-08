@@ -5,6 +5,8 @@ const routes = require('./routes');
 const userController = require('./userController')
 const db = require('./db'); 
 const User = require('./userModel');
+require('dotenv').config();
+const port = process.env.PORT;
 
 const app = express();
 app.use(cors());
@@ -14,6 +16,6 @@ app.use('/', routes);
 
 app.use(express.urlencoded({ extended: false }));
 
-app.listen(4000, () => {
-  console.log("Server works on 4000");
+app.listen(port, () => {
+  console.log("Server works on "+port);
 });

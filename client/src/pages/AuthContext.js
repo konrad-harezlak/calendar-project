@@ -6,12 +6,10 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const login = (userData) => {
-    // Logika logowania (np. wywołanie API logowania)
     setUser(userData);
   };
 
   const logout = () => {
-    // Logika wylogowywania
     setUser(null);
   };
 

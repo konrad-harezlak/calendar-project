@@ -30,7 +30,7 @@ router.get('/users', usersController.getUsers)
 
 router.post('/meetings', meetingController.createMeeting);
 router.get('/meetings', meetingController.readMeetings);
-router.delete('/meetings/:id',meetingController.deleteMeeting)
+router.delete('/meetings/:id',meetingController.deleteParticipantFromMeeting)
 
 
 module.exports = router;

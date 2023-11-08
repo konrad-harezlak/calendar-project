@@ -23,10 +23,9 @@ const Registration = () => {
         alert.innerHTML = '';
         e.preventDefault();
         if (userData.password !== userData.password2) {
-            console.log('Hasło i powtórzone hasło nie są zgodne.');
             alert.innerHTML += 'Hasła nie są takie same!';
             return;
-        }   else 
+        } else
             alert.innerHTML = '';
         try {
             await axios.post('http://localhost:4000/registration', userData, {
@@ -37,8 +36,15 @@ const Registration = () => {
             return navigate("/");
         } catch (error) {
             console.error(error, '\n', error.response);
-            if (error.response && error.response.status === 400) 
-                alert.innerHTML += 'Użytkownik o podanej nazwie już istnieje.';
+            if (error.response && error.response.status === 400) {
+                if (error.response.data.message === 'Użytkownik o podanej nazwie już istnieje.') {
+                    alert.innerHTML += 'Użytkownik o podanej nazwie już istnieje.';
+                } else if (error.response.data.message === 'Użytkownik o podanym emailu już istnieje.') {
+                    alert.innerHTML += 'Użytkownik o podanym adresie e-mail już istnieje.';
+                } else {
+                    alert.innerHTML += 'Wystąpił błąd podczas rejestracji.';
+                }
+            }
         }
 
     }

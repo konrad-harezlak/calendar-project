@@ -38,19 +38,28 @@ const readMeetings = async (req, res) => {
     }
 };
 
-const deleteMeeting = async (req, res) => {
+const deleteParticipantFromMeeting = async (req, res) => {
     const meetingId = req.params.id;
-
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, 'sekretny_token');
+    const userName = decodedToken.userName;
     try {
-        const deletedMeeting = await Meeting.findOneAndDelete({ _id: meetingId });
-        if (deletedMeeting) {
-            res.status(200).json({ message: 'Spotkanie zostało usunięte.' });
-        } else {
-            res.status(404).json({ error: 'Spotkanie o podanym identyfikatorze nie zostało znalezione.' });
+        const meeting = await Meeting.findOne({_id: meetingId});
+        if (!meeting) {
+            return res.status(404).json({ error: 'Spotkanie o podanym identyfikatorze nie zostało znalezione.' });
         }
+
+        const participantIndex = meeting.participants.findIndex(participant => participant=== userName);
+        if (participantIndex === -1) {
+            return res.status(404).json({ error: 'Użytkownik o podanym identyfikatorze nie jest uczestnikiem tego spotkania.' });
+        }
+        meeting.participants.splice(participantIndex, 1);
+        await meeting.save();
+
+        res.status(200).json({ message: 'Użytkownik został usunięty z spotkania.' });
     } catch (error) {
-        console.error('Błąd podczas usuwania spotkania:', error);
-        res.status(500).json({ error: 'Błąd podczas usuwania spotkania.' });
+        console.error('Błąd podczas usuwania uczestnika ze spotkania:', error);
+        res.status(500).json({ error: 'Błąd podczas usuwania uczestnika ze spotkania.' });
     }
 };
 
@@ -59,5 +68,5 @@ const deleteMeeting = async (req, res) => {
 module.exports = {
     createMeeting,
     readMeetings,
-    deleteMeeting
+    deleteParticipantFromMeeting
 };
