@@ -11,8 +11,8 @@ function authenticateToken(req, res, next) {
   if (!token) return res.status(401).send('Brak tokenu. Użytkownik nieuwierzytelniony.');
   jwt.verify(token, 'sekretny_token', (err, user) => {
     if (err) return res.status(403).send('Nieprawidłowy token.'+err);
-    req.user = user; // Przekaż dane użytkownika do kontrolera
-    next(); // Przejdź do następnej funkcji pośredniej lub kontrolera
+    req.user = user; 
+    next();
   });
 }
 
