@@ -14,6 +14,14 @@ Welcome to the Calendar Project! This web application, built using React, Node.j
 
 ## Project Overview
 
+### You can find deployed project below:
+### [Calendar Page](https://calendar-frontend-brl8.onrender.com/calendar)
+Users:
+- L:Konrad P:Harezlak
+- L:Ryszard P:peja
+- L:Pudzian P:pudzian
+- L:Witkor P:Ruda
+
 The project is divided into different sections:
 
 ### Authentication
