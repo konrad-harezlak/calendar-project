@@ -1,28 +1,68 @@
 const Meeting = require('./meetingModel');
 const jwt = require('jsonwebtoken');
 
+const isUserAvailable = async (userName, date, startTime, endTime) => {
+    try {
+        const existingMeetings = await Meeting.find({
+            participants: userName,
+            date: date,
+            $and: [
+                { time: { $lt: endTime } },
+                { endTime: { $gt: startTime } },
+            ],
+        });
+        return existingMeetings.length === 0;
+    } catch (error) {
+        console.error('Błąd podczas sprawdzania dostępności użytkownika:', error);
+        return false;
+    }
+};
+
 const createMeeting = async (req, res) => {
     try {
-        const { title, date, time, participants } = req.body;
+        const { title, date, time, endTime, participants } = req.body;
         const token = req.headers.authorization.split(' ')[1];
         const decodedToken = jwt.verify(token, 'sekretny_token');
         const userName = decodedToken.userName;
+
+        // Sprawdź dostępność użytkownika (twórcy spotkania)
+        const isCreatorAvailable = await isUserAvailable(userName, date, time, endTime);
+
+        if (!isCreatorAvailable) {
+            console.log("Użytkownik ma już umówione spotkanie w tym czasie.",isCreatorAvailable);
+            return res.status(409).json({ error: 'Użytkownik ma już umówione spotkanie w tym czasie.' });
+        }
+
+        // Sprawdź dostępność pozostałych uczestników
+        for (const participant of participants) {
+            const isParticipantAvailable = await isUserAvailable(participant, date, time, endTime);
+
+            if (!isParticipantAvailable) {
+                console.log(`Uczestnik ${participant} ma już umówione spotkanie w tym czasie.`);
+                return res.status(410).json({ error: `Uczestnik ${participant} ma już umówione spotkanie w tym czasie.` });
+            }
+        }
+
         if (!participants.includes(userName))
             participants.push(userName);
+
         const newMeeting = new Meeting({
             title,
             date,
             time,
+            endTime,
             participants,
         });
+
         const savedMeeting = await newMeeting.save();
-        console.log('Spotkanie zapisane w bazie danych:', savedMeeting);
+        console.log('Spotkanie zapisane w bazie danych');
         res.status(200).json(savedMeeting);
     } catch (error) {
-        console.error('Błąd podczas zapisywania spotkania: i huj', error);
-        res.status(500).json({ error: 'Błąd podczas zapisywania spotkania.i huj kurwa mac' });
+        console.error('Błąd podczas zapisywania spotkania:', error);
+        res.status(500).json({ error: 'Błąd podczas zapisywania spotkania.' });
     }
 };
+
 
 const readMeetings = async (req, res) => {
     try {
