@@ -61,7 +61,7 @@ const Settings = () => {
         try {
             // Wyślij dane do serwera za pomocą axios
             const token = localStorage.getItem('token');
-            let response = await axios.post('http://localhost:4000/settings', formData,{
+            let response = await axios.post('https://calendar-a5id.onrender.com/settings', formData,{
                 headers: {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': `${token}`

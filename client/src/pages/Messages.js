@@ -14,7 +14,7 @@ const Messages = () => {
     const handleSendMessage = async () => {
         try {
             const token = localStorage.getItem('token');
-            let response = await axios.post('http://localhost:4000/messages', {
+            let response = await axios.post('https://calendar-a5id.onrender.com/messages', {
                 recipient: recipient._id,
                 content: message,
             }, {
@@ -35,7 +35,7 @@ const Messages = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                let response = await axios.get('http://localhost:4000/users');
+                let response = await axios.get('https://calendar-a5id.onrender.com/users');
                 setUsers(response.data);
             } catch (error) {
                 console.error("Błąd podczas pobierania użytkowników: ", error);
@@ -49,7 +49,7 @@ const Messages = () => {
         const fetchMessages = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get(`http://localhost:4000/messages/${recipient._id}`, {
+                const response = await axios.get(`https://calendar-a5id.onrender.com/messages/${recipient._id}`, {
                     headers: {
                         'Authorization': `${token}`
                     }

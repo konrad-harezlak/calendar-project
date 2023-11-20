@@ -28,7 +28,7 @@ const Registration = () => {
         } else
             alert.innerHTML = '';
         try {
-            await axios.post('http://localhost:4000/registration', userData, {
+            await axios.post('https://calendar-a5id.onrender.com/registration', userData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

@@ -14,7 +14,7 @@ const DaySchedule = ({ onClose, selectedDate }) => {
     useEffect(() => {
         const fetchMeetings = async () => {
             try {
-                let url = `http://localhost:4000/meetings?date=${formattedDate.toUTCString()}`
+                let url = `https://calendar-a5id.onrender.com/meetings?date=${formattedDate.toUTCString()}`
                 let response = await axios.get(url);
 
                 setMeetings(response.data);
@@ -29,7 +29,7 @@ const DaySchedule = ({ onClose, selectedDate }) => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                let response = await axios.get('http://localhost:4000/users');
+                let response = await axios.get('https://calendar-a5id.onrender.com/users');
                 setUsers(response.data);
             } catch (error) {
                 console.error("Błąd podczas pobierania użytkowników: ", error);
@@ -56,7 +56,7 @@ const DaySchedule = ({ onClose, selectedDate }) => {
         try {
 
             const date = formattedDate.toUTCString();
-            response = await axios.post('http://localhost:4000/meetings', {
+            response = await axios.post('https://calendar-a5id.onrender.com/meetings', {
                 title: meetingTitle,
                 date: date,
                 time: selectedTime,
@@ -90,7 +90,7 @@ const DaySchedule = ({ onClose, selectedDate }) => {
 
     const handleDeleteMeeting = async (meetingId) => {
         try {
-            await axios.delete(`http://localhost:4000/meetings/${meetingId}`);
+            await axios.delete(`https://calendar-a5id.onrender.com/meetings/${meetingId}`);
             const updatedMeetings = meetings.filter(meeting => meeting._id !== meetingId);
             setMeetings(updatedMeetings);
             console.log('Spotkanie usunięte:', meetingId);
