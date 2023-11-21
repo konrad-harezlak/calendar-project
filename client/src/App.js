@@ -10,6 +10,7 @@ import Calendar from './pages/Calendar';
 import Messages from './pages/Messages';
 import Settings from './pages/Settings';
 import Error404 from './pages/Error404';
+import Pomodoro from './pages/Pomodoro';
 import { useAuth } from './pages/AuthContext';
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"></link>
@@ -27,6 +28,7 @@ function App() {
             <Route path='/messages' element={user ? <Messages /> : <Login />} />
             <Route path='/calendar' element={user ? <Calendar /> : <Login />} />
             <Route path='/settings' element={user ? <Settings /> : <Login />} />
+            <Route path='/pomodoro' element={user ? <Pomodoro /> : <Login />} />
             <Route path='*' element={<Error404 />} />
           </Routes>
         </Router>

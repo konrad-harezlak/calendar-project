@@ -15,6 +15,7 @@ const Navigation = ()=>{
                         <Link to="/home" className='nav_link'><li>Profil</li></Link>
                         <Link to="/calendar" className='nav_link'><li>Kalendarz</li></Link>
                         <Link to="/messages" className='nav_link'><li>Wiadomości</li></Link>
+                        <Link to="/pomodoro" className='nav_link'><li>Pomodoro</li></Link>
                     </ul>
                 </div>
                 <div className='settings_button'>
