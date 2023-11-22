@@ -7,6 +7,7 @@ const authenticateToken = require('./authenticateToken');
 const messageController = require('./messagesController');
 const usersController = require('./userController');
 const meetingController = require('./meetingController');
+const { isUserAvailable } = require('./meetingController')
 
 router.post('/registration', registrationController.registerUser);
 router.get('/registration', (req, res) => {
