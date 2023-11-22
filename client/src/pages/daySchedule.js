@@ -10,7 +10,6 @@ const DaySchedule = ({ onClose, selectedDate }) => {
     const [selectedEndTime, setSelectedEndTime] = useState('');
     const [users, setUsers] = useState([]);
     const [scheduleForFiveDays, setScheduleForFiveDays] = useState(false);
-    let [response] = useState('');
     let [formattedDate] = useState(new Date(selectedDate[0], selectedDate[1] - 1, selectedDate[2]))
     useEffect(() => {
         const fetchMeetings = async () => {
@@ -66,7 +65,7 @@ const DaySchedule = ({ onClose, selectedDate }) => {
                 let canSchedule = true;
 
                 for (let i = 0; i < 5; i++) {
-                    const newDate = new Date(formattedDate);
+                    const newDate = new Date(formattedDate.toUTCString());
                     newDate.setDate(newDate.getDate() + i);
 
                     for (const participant of participantsList) {
@@ -81,7 +80,7 @@ const DaySchedule = ({ onClose, selectedDate }) => {
 
                         if (!isAvailable.data.isAvailable) {
                             canSchedule = false;
-                            alert(`Użytkownik ${participant} ma już umówione spotkanie w dniu ${newDate.toISOString().split('T')[0]} o podanym czasie.`);
+                            alert(`Użytkownik ${participant} ma już umówione spotkanie w dniu  ${new Date(newDate).getDate() + "-" + (new Date(newDate).getMonth() + 1) + "-" + new Date(newDate).getFullYear()} o podanym czasie.`);
                             break;
                         }
                     }
@@ -113,7 +112,7 @@ const DaySchedule = ({ onClose, selectedDate }) => {
                     const isAvailable = await axios.get('https://calendar-a5id.onrender.com/isUserAvailable', {
                         params: {
                             userName: participant,
-                            date: date,
+                            date: date.toUTCString(),
                             startTime: selectedTime,
                             endTime: selectedEndTime,
                         },
