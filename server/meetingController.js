@@ -108,5 +108,6 @@ const deleteParticipantFromMeeting = async (req, res) => {
 module.exports = {
     createMeeting,
     readMeetings,
-    deleteParticipantFromMeeting
+    deleteParticipantFromMeeting,
+    isUserAvailable
 };
