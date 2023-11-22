@@ -9,6 +9,7 @@ const DaySchedule = ({ onClose, selectedDate }) => {
     const [meetings, setMeetings] = useState([]);
     const [selectedEndTime, setSelectedEndTime] = useState('');
     const [users, setUsers] = useState([]);
+    const [scheduleForFiveDays, setScheduleForFiveDays] = useState(false);
     let [response] = useState('');
     let [formattedDate] = useState(new Date(selectedDate[0], selectedDate[1] - 1, selectedDate[2]))
     useEffect(() => {
@@ -25,6 +26,11 @@ const DaySchedule = ({ onClose, selectedDate }) => {
 
         fetchMeetings();
     }, [formattedDate]);
+
+    const handleCheckboxChange = () => {
+        setScheduleForFiveDays(!scheduleForFiveDays);
+    };
+
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -54,28 +60,93 @@ const DaySchedule = ({ onClose, selectedDate }) => {
             return;
         }
         try {
-
             const date = formattedDate.toUTCString();
-            response = await axios.post('https://calendar-a5id.onrender.com/meetings', {
-                title: meetingTitle,
-                date: date,
-                time: selectedTime,
-                endTime: selectedEndTime,
-                participants: participantsList,
-            });
-            console.log('Spotkanie zapisane:', new Date(response.data.date));;
+
+            if (scheduleForFiveDays) {
+                let canSchedule = true;
+
+                for (let i = 0; i < 5; i++) {
+                    const newDate = new Date(formattedDate);
+                    newDate.setDate(newDate.getDate() + i);
+
+                    for (const participant of participantsList) {
+                        const isAvailable = await axios.get('https://calendar-a5id.onrender.com/isUserAvailable', {
+                            params: {
+                                userName: participant,
+                                date: newDate.toUTCString(),
+                                startTime: selectedTime,
+                                endTime: selectedEndTime,
+                            },
+                        });
+
+                        if (!isAvailable.data.isAvailable) {
+                            canSchedule = false;
+                            alert(`Użytkownik ${participant} ma już umówione spotkanie w dniu ${newDate.toISOString().split('T')[0]} o podanym czasie.`);
+                            break;
+                        }
+                    }
+
+                    if (!canSchedule) {
+                        break;
+                    }
+                }
+
+                if (canSchedule) {
+                    for (let i = 0; i < 5; i++) {
+                        const newDate = new Date(formattedDate);
+                        newDate.setDate(newDate.getDate() + i);
+
+                        const response = await axios.post('https://calendar-a5id.onrender.com/meetings', {
+                            title: meetingTitle,
+                            date: newDate.toUTCString(),
+                            time: selectedTime,
+                            participants: participantsList,
+                        });
+
+                        console.log('Spotkanie zapisane:', new Date(response.data.date));
+                    }
+                }
+            } else {
+                let canSchedule = true;
+
+                for (const participant of participantsList) {
+                    const isAvailable = await axios.get('https://calendar-a5id.onrender.com/isUserAvailable', {
+                        params: {
+                            userName: participant,
+                            date: date,
+                            startTime: selectedTime,
+                            endTime: selectedEndTime,
+                        },
+                    });
+
+                    if (!isAvailable.data.isAvailable) {
+                        canSchedule = false;
+                        alert(`Użytkownik ${participant} ma już umówione spotkanie w dniu ${formattedDate.toISOString().split('T')[0]} o podanym czasie.`);
+                        break;
+                    }
+                }
+
+                if (canSchedule) {
+                    const response = await axios.post('https://calendar-a5id.onrender.com/meetings', {
+                        title: meetingTitle,
+                        date: date,
+                        time: selectedTime,
+                        endTime: selectedEndTime,
+                        participants: participantsList,
+                    });
+
+                    console.log('Spotkanie zapisane:', new Date(response.data.date));
+                }
+            }
         } catch (error) {
             if (error.response && error.response.status === 409) {
                 alert("Masz już umówione spotkanie w tym czasie.");
                 console.log(error.response.status)
-            } else if(error.response && error.response.status === 410){
+            } else if (error.response && error.response.status === 410) {
                 alert(error.response.data.error)
             }
-            else {
-                console.error('Błąd podczas zapisywania spotkania:', error);
-            }
         }
-    }
+    };
     const handleAddParticipant = () => {
         if (selectedParticipant && !participantsList.includes(selectedParticipant)) {
             setParticipantsList([...participantsList, selectedParticipant]);
@@ -112,7 +183,7 @@ const DaySchedule = ({ onClose, selectedDate }) => {
                                 <div className="meeting-details">
                                     <span className="meeting-title"><h2>{meeting.title}</h2></span>
                                     <span className="meeting-time"><time>{meeting.time}-{meeting.endTime}</time></span>
-                                    <br/>
+                                    <br />
                                     <span className="participants">Participants: {meeting.participants.join(', ')}</span>
                                 </div>
                                 <div className="meeting-actions">
@@ -145,7 +216,15 @@ const DaySchedule = ({ onClose, selectedDate }) => {
                         value={selectedEndTime}
                         onChange={(e) => setSelectedEndTime(e.target.value)}
                     />
-
+                    <label htmlFor='daily'>
+                        <input
+                            id='daily'
+                            type="checkbox"
+                            checked={scheduleForFiveDays}
+                            onChange={handleCheckboxChange}
+                        />
+                        Planuj na 5 dni roboczych(daily)
+                    </label>
                     <label>Uczestnicy:</label>
                     <select
                         value={selectedParticipant}
