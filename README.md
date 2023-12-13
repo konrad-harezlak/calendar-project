@@ -78,12 +78,11 @@ npm install bcrypt@5.1.1 body-parser@1.20.2 cors@2.8.5 ejs@3.1.9 express@4.18.2 
 ```
 Open your web browser and visit http://localhost:3000 to view the frontend.
 
-##Project Status
+## Project Status
 The frontend components and user interface are implemented, while the backend and database integration are still in progress. Contributions are welcome!
 
 Contact
 - GitHub: [Your GitHub Profile](https://github.com/konrad-harezlak)
 - LinkedIn: [Your LinkedIn Profile](https://www.linkedin.com/in/konrad-harężlak-6293a5272/)
-- Phone: 791-019-796
 
 Feel free to get in touch if you have any questions or would like to collaborate!
