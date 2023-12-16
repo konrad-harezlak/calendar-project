@@ -1,3 +1,5 @@
+module.exports = authenticateToken;
+
 const jwt = require('jsonwebtoken');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -8,9 +10,10 @@ app.use(bodyParser.json());
 
 function authenticateToken(req, res, next) {
   const token = req.header('Authorization');
-  if (!token) return res.status(401).send('Brak tokenu. Użytkownik nieuwierzytelniony.');
-  jwt.verify(token, 'sekretny_token', (err, user) => {
-    if (err) return res.status(403).send('Nieprawidłowy token.' + err);
+
+  if (!token) return res.status(401).send('No JWT token provided. User not authenticated.');
+  jwt.verify(token,process.env.JWT_TOKEN, (err, user) => {
+    if (err) return res.status(403).send('Invalid token.' + err);
     req.user = user;
     next();
   });

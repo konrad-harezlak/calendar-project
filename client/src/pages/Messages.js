@@ -11,7 +11,8 @@ const Messages = () => {
     let [recipient, setRecipient] = useState('');
     const [messages, setMessages] = useState([]);
 
-    const handleSendMessage = async () => {
+    const handleSendMessage = async (e) => {
+        e.preventDefault();
         try {
             const token = localStorage.getItem('token');
             let response = await axios.post('/messages', {
@@ -22,11 +23,11 @@ const Messages = () => {
                     'Authorization': `${token}`
                 }
             });
-            console.log("wiadomosc wysłana", response.data);
+
             setMessages([...messages, response.data]);
             setMessage('');
         } catch (error) {
-
+            alert(error)
             console.error("Error occurred while sending the message: ", error)
         }
     }
@@ -53,8 +54,10 @@ const Messages = () => {
                     headers: {
                         'Authorization': `${token}`
                     }
-                });
+                })
+
                 setMessages(response.data);
+
             } catch (error) {
                 console.error("Error with message fetching: ", error);
             }
@@ -70,12 +73,12 @@ const Messages = () => {
             {recipient && (
                 <div className='messages_container'>
                     <div className='messages_header'>
-                        <p>
-                            {recipient.firstName || recipient.lastName ? (
-                                <h2>{recipient.firstName} {recipient.lastName}</h2>
-                            ) : (
-                                <h2>{recipient.userName}</h2>)}
-                        </p>
+
+                        {recipient.firstName || recipient.lastName ? (
+                            <h2>{recipient.firstName} {recipient.lastName}</h2>
+                        ) : (
+                            <h2>{recipient.userName}</h2>)}
+
                     </div>
 
                     <div className='messages'>
@@ -86,13 +89,13 @@ const Messages = () => {
                         ))}
                     </div>
                     <div className='write_message'>
-                        <form>
+                        <form >
                             <input
                                 type='text'
                                 placeholder='Write message..'
                                 value={message}
                                 onChange={(e => setMessage(e.target.value))}></input>
-                            <button onClick={handleSendMessage}> <FontAwesomeIcon className='font' icon={faPaperPlane} /></button>
+                            <button onClick={(e)=>handleSendMessage(e)}> <FontAwesomeIcon className='font' icon={faPaperPlane} /></button>
                         </form>
                     </div>
                 </div>

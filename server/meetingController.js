@@ -20,9 +20,11 @@ const isUserAvailable = async (userName, date, startTime, endTime) => {
 
 const createMeeting = async (req, res) => {
     try {
+        console.log("meetingController.createMeeting")
         const { title, date, time, endTime, participants } = req.body;
-        const token = req.headers.authorization.split(' ')[1];
-        const decodedToken = jwt.verify(token, 'secret_token');
+        const token = req.headers.authorization;
+        console.log(token)
+        const decodedToken = jwt.verify(token, process.env.JWT_TOKEN);
         const userName = decodedToken.userName;
 
         const isCreatorAvailable = await isUserAvailable(userName, date, time, endTime);
@@ -64,8 +66,8 @@ const createMeeting = async (req, res) => {
 const readMeetings = async (req, res) => {
     try {
         const selectedDate = req.query.date;
-        const token = req.headers.authorization.split(' ')[1];
-        const decodedToken = jwt.verify(token, 'secret_token');
+        const token = req.headers.authorization;
+        const decodedToken = jwt.verify(token, process.env.JWT_TOKEN);
         const meetings = await Meeting.find({ participants: decodedToken.userName, date: selectedDate });
         console.log('Meetings read from the database');
         res.status(200).json(meetings);
@@ -78,7 +80,7 @@ const readMeetings = async (req, res) => {
 const deleteParticipantFromMeeting = async (req, res) => {
     const meetingId = req.params.id;
     const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, 'secret_token');
+    const decodedToken = jwt.verify(token, process.env.JWT_TOKEN);
     const userName = decodedToken.userName;
     try {
         const meeting = await Meeting.findOne({ _id: meetingId });

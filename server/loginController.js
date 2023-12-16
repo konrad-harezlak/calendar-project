@@ -16,7 +16,8 @@ async function loginUser(req, res) {
       return res.status(401).json({ message: 'Invalid userName or password' });
     }
 
-    const secretKey = 'secret_token';
+    const secretKey = process.env.JWT_TOKEN;
+
     const token = jwt.sign({ userId: user._id, userName: user.userName }, secretKey, { expiresIn: '1h' });
 
     res.status(200).json({ message: 'Successfully logged in', user, token });

@@ -34,7 +34,7 @@ router.get('/meetings', meetingController.readMeetings);
 router.delete('/meetings/:id',meetingController.deleteParticipantFromMeeting);
 router.get('/isUserAvailable', async (req, res) => {
     const { userName, date, startTime, endTime } = req.query;
-
+   
     try {
         const isAvailable = await isUserAvailable(userName, date, startTime, endTime);
         res.json({ isAvailable });

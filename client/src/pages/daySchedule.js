@@ -11,18 +11,22 @@ const DaySchedule = ({ onClose, selectedDate }) => {
     const [users, setUsers] = useState([]);
     const [scheduleForFiveDays, setScheduleForFiveDays] = useState(false);
     let [formattedDate] = useState(new Date(selectedDate[0], selectedDate[1] - 1, selectedDate[2]))
+    const fetchMeetings = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            let url = `/meetings?date=${formattedDate.toUTCString()}`
+            let response = await axios.get(url, {
+                headers: {
+                    'Authorization': `${token}`
+                }
+            });
+
+            setMeetings(response.data);
+        } catch (error) {
+            console.error('Error with fetching meetings: ', error);
+        }
+    };
     useEffect(() => {
-        const fetchMeetings = async () => {
-            try {
-                let url = `/meetings?date=${formattedDate.toUTCString()}`
-                let response = await axios.get(url);
-
-                setMeetings(response.data);
-            } catch (error) {
-                console.error('Error with fetching meetings: ', error);
-            }
-        };
-
         fetchMeetings();
     }, [formattedDate]);
 
@@ -107,17 +111,16 @@ const DaySchedule = ({ onClose, selectedDate }) => {
                 }
             } else {
                 let canSchedule = true;
-
                 for (const participant of participantsList) {
+                    const newDate = new Date(formattedDate.toUTCString());
                     const isAvailable = await axios.get('/isUserAvailable', {
                         params: {
                             userName: participant,
-                            date: date.toUTCString(),
+                            date: newDate,
                             startTime: selectedTime,
                             endTime: selectedEndTime,
                         },
                     });
-
                     if (!isAvailable.data.isAvailable) {
                         canSchedule = false;
                         alert(`User ${participant} already has a schedulded meeting on ${formattedDate.toISOString().split('T')[0]} at the specified time.`);
@@ -126,15 +129,22 @@ const DaySchedule = ({ onClose, selectedDate }) => {
                 }
 
                 if (canSchedule) {
+                    const token = localStorage.getItem('token');
                     const response = await axios.post('/meetings', {
                         title: meetingTitle,
                         date: date,
                         time: selectedTime,
                         endTime: selectedEndTime,
                         participants: participantsList,
+
+                    }, {
+                        headers: {
+                            'Authorization': `${token}`
+                        }
                     });
 
                     console.log('Meeting saved:', new Date(response.data.date));
+                    fetchMeetings();
                 }
             }
         } catch (error) {
