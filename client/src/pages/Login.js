@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from '../api.js';
 import { Link, useNavigate } from 'react-router-dom';
 import './login.css';
 import { useAuth } from './AuthContext';
 
 const Login = () => {
-    const {login} = useAuth();
+    const { login } = useAuth();
     const [loginData, setLoginData] = useState({
         userName: '',
         password: ''
@@ -25,22 +25,22 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response =await axios.post('https://calendar-a5id.onrender.com/login',loginData,{
-                headers:{
-                    'Content-Type':'application/json'
+            const response = await axios.post('/login', loginData, {
+                headers: {
+                    'Content-Type': 'application/json'
                 }
             });
-            const {token,user} = response.data;
+            const { token, user } = response.data;
             localStorage.setItem('token', token);
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             login(user);
             navigate('/home');
         } catch (error) {
-            console.error('Błąd logowania:', error);
+            console.error('Login error: ', error);
             if (error.response && error.response.status === 401) {
-                setErrorMessage('Zły Login lub Hasło.'); 
+                setErrorMessage('Incorrect username or password.');
             } else {
-                console.error('Błąd logowania:', error);
+                console.error('Login error: ', error);
             }
         }
     };
@@ -49,20 +49,20 @@ const Login = () => {
             <div className='form'>
                 <form method="POST" onSubmit={handleLogin}>
                     <label>
-                        <p> Wpisz swój login: </p>
+                        <p> Enter your username: </p>
                         <input
-                            type='userName'
-                            placeholder='Login...'
+                            type='text'
+                            placeholder='Username...'
                             name='userName'
                             value={loginData.userName}
                             onChange={handleInputChange}
                         />
                     </label>
                     <label>
-                        <p> Hasło: </p>
+                        <p> Password: </p>
                         <input
                             type='password'
-                            placeholder='Haslo...'
+                            placeholder='Password...'
                             name='password'
                             value={loginData.password}
                             onChange={handleInputChange}
@@ -72,8 +72,8 @@ const Login = () => {
                     <button type='submit' className='button_login'>Submit!</button>
                 </form>
                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-                <p className='p_link'><Link to="/registration" className='link'>Zarejestruj się!</Link></p>
-                <p className='p_link'><Link to="/recovery" className='link'>Zapomniałem hasła</Link></p>
+                <p className='p_link'><Link to="/registration" className='link'>Register!</Link></p>
+                <p className='p_link'><Link to="/recovery" className='link'>Forgot password?</Link></p>
             </div>
         </div>
     )

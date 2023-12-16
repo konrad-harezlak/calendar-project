@@ -1,7 +1,5 @@
-import React,{useState,useEffect} from 'react';
-import './day.css'
+import React,{useState} from 'react';
 import DaySchedule from './daySchedule';
-import axios from 'axios';
 
 const Day = ({ day, daysOfMonth, option,dayOfWeek,month,year }) => {
   let [isModalVisible, setModalVisible] = useState(false);
@@ -13,14 +11,14 @@ const Day = ({ day, daysOfMonth, option,dayOfWeek,month,year }) => {
     <div 
     className='day'
      onClick={()=>{
-      if ((!dayOfWeek || (dayOfWeek !== 'Sobota' && dayOfWeek !== 'Niedziela')) && (option!==0 && option!==2)) {
+      if ((!dayOfWeek || (dayOfWeek !== 'Saturday' && dayOfWeek !== 'Sunday')) && (option!==0 && option!==2)) {
         setModalVisible(true);
       }
      }}
     style={
       {
         ...(option === 2 || option === 0 ? { backgroundColor: '#0005' } : null),
-        ...(dayOfWeek === "Sobota" || dayOfWeek === "Niedziela" ? { backgroundColor: '#0005' } : null)
+        ...(dayOfWeek === "Saturday" || dayOfWeek === "Sunday" ? { backgroundColor: '#0005' } : null)
       }
     }>  
       <h1>{number}</h1>

@@ -16,20 +16,21 @@ const Home = () => {
             <Navigation />
             <div className='home_container'>
                 <div className='profile_info'>
-                    <h1>Witaj, {user.firstName || user.userName}!</h1>
+                    <h1>Welcome, {user.firstName || user.userName}!</h1>
                     <p>Email: {user.email}</p>
-                    <p>Stanowisko: {user.position || '-'}</p>
-                    <p>Stopień doświadczenia: {user.experienceLevel || '-'}</p>
+                    <p>Position: {user.position || '-'}</p>
+                    <p>Experience Level: {user.experienceLevel || '-'}</p>
                 </div>
                 <div className='profile_image'>
-                    <img src={profilePictureURL} alt='Profilowe zdjęcie' />
+                    <img src={profilePictureURL} alt='Profile Picture' />
                 </div>
                 <div className='profile_description'>
-                    <h2>O mnie:</h2>
-                    <p>{user.description || 'Brak opisu użytkownika'}</p>
+                    <h2>About Me:</h2>
+                    <p>{user.description || 'No user description available'}</p>
                 </div>
             </div>
         </div>
+
     );
 }
 

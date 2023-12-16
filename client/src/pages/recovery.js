@@ -9,17 +9,15 @@ const Recovery = () => {
         if (form)
             form.innerHTML =
                 `<form>
-                        <label>
-                            <p>Wysłaliśmy Ci kod na email:</p>
-                            <input type='text' placeholder='Kod...' />
-                        </label>
-                        <br />
-                        <button type='submit' class='button_login' >Send!</button>
-                    </form>
-                    <p class='p_link'><a href="/" class='link'>Zaloguj się!</a></p>
-                    <p class='p_link'><a href="/registration" class='link'>Zarejestruj się!</a></p>
-     
-            `;
+                <label>
+                    <p>We have sent you a code to your email:</p>
+                    <input type='text' placeholder='Code...' />
+                </label>
+                <br />
+                <button type='submit' className='button_login'>Send!</button>
+            </form>
+            <p className='p_link'><a href="/" className='link'>Log in!</a></p>
+            <p className='p_link'><a href="/registration" className='link'>Register!</a></p>`;
     }
 
 
@@ -35,18 +33,19 @@ const Recovery = () => {
     return (
         <div className='recovery_page'>
             <div className='form' id='form'>
-                <form >
+                <form>
                     <label>
-                        <p> Zapomniałeś hasła?</p>
-                        <input type='email' placeholder='Podaj nam swój E-mail...' />
+                        <p>Forgot your password?</p>
+                        <input type='email' placeholder='Enter your E-mail...' />
                     </label>
                     <br />
                     <button id="btn" className='button_login' type='button'>Send!</button>
                 </form>
-                <p className='p_link'><Link to="/" className='link'>Zaloguj się!</Link></p>
-                <p className='p_link'><Link to="/registration" className='link'>Zarejestruj się!</Link></p>
+                <p className='p_link'><Link to="/" className='link'>Log in!</Link></p>
+                <p className='p_link'><Link to="/registration" className='link'>Register!</Link></p>
             </div>
         </div>
+
     )
 
 }

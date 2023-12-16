@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './settings.css';
-import axios from 'axios'
+import axios from '../api.js'
 import { useAuth } from './AuthContext'
 
 const Settings = () => {
@@ -39,14 +39,11 @@ const Settings = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!userData.password) {
-            alert("Hasło jest wymagane!");
+            alert("Password is required!");
             setShowPasswordError(true);
             return;
         } else
             setShowPasswordError(false);
-        console.log("tutaj" + userData.firstName)
-        console.log(userData.firstName)
-        console.log(userData.password)
         const formData = new FormData();
         formData.append("firstName", userData.firstName);
         formData.append("lastName", userData.lastName);
@@ -59,18 +56,18 @@ const Settings = () => {
         formData.append("userName", userData.userName);
         formData.append("password", userData.password);
         try {
-            // Wyślij dane do serwera za pomocą axios
             const token = localStorage.getItem('token');
-            let response = await axios.post('https://calendar-a5id.onrender.com/settings', formData,{
+            let response = await axios.post('/settings', formData, {
                 headers: {
-                'Content-Type': 'multipart/form-data',
-                'Authorization': `${token}`
-            }},
-         );
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `${token}`
+                }
+            },
+            );
             login(response.data.user);
             navigate('/home');
         } catch (error) {
-            console.error('Błąd podczas zapisywania danych:', error);
+            console.error('Error occured saving data: ', error);
         }
 
 
@@ -78,60 +75,60 @@ const Settings = () => {
     return (
         <div className='settings_page'>
             <div className='settings_container'>
-                <form encType="multipart/form-data" method='POST' onSubmit={handleSubmit} >
+                <form encType="multipart/form-data" method='POST' onSubmit={handleSubmit}>
                     <div className='col1'>
                         <label>
-                            Imię:
+                            First Name:
                             <input type='text' name='firstName' value={userData.firstName} onChange={handleChange} />
                         </label>
                         <label>
-                            Nazwisko:
+                            Last Name:
                             <input type='text' name='lastName' value={userData.lastName} onChange={handleChange} />
                         </label>
                         <label>
-                            Stanowisko:
+                            Position:
                             <input type='text' name='position' value={userData.position} onChange={handleChange} />
                         </label>
                         <label>
-                            Stopień doświadczenia:
+                            Experience Level:
                             <input type='text' name='experienceLevel' value={userData.experienceLevel} onChange={handleChange} />
                         </label>
                         <label>
-                            Opis stanowiska/siebie:
+                            Job/Self Description:
                             <textarea name='description' value={userData.description} onChange={handleChange}></textarea>
                         </label>
                         <label>
-                            Zdjęcie:
+                            Photo:
                             <input type='file' accept='image/*' name='profilePicture' onChange={handleChange} />
                         </label>
                     </div>
                     <div className='col2'>
                         <label>
-                            Nowe hasło:
+                            New Password:
                             <input type='password' name='newPassword' value={userData.newPassword} onChange={handleChange} />
                         </label>
                         <label>
-                            Nowy email:
+                            New Email:
                             <input type='email' name='email' value={userData.email} onChange={handleChange} />
                         </label>
                         <label>
-                            Nowy loginu:
+                            New Username:
                             <input type='text' name='userName' value={userData.userName} onChange={handleChange} />
                         </label>
                         <label>
-                            Hasło:
+                            Password:
                             <input type='password' name='password' value={userData.password} onChange={handleChange} />
-                            {showPasswordError && <p className='alert_wrong'>Brak hasła! Wprowadź hasło.</p>}
+                            {showPasswordError && <p className='alert_wrong'>No password! Enter a password.</p>}
                         </label>
                     </div>
                     <div className='button_container'>
-                        <Link to='/home'><input type='button' value="Anuluj"></input></Link>
-                        <button type='submit'>Zapisz</button>
+                        <Link to='/home'><input type='button' value="Cancel"></input></Link>
+                        <button type='submit'>Save</button>
                     </div>
                 </form>
-
             </div>
         </div>
+
 
     )
 }

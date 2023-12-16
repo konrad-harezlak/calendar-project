@@ -3,7 +3,7 @@ import Navigation from './Navigation';
 import './messages.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
+import axios from '../api.js';
 
 const Messages = () => {
     const [message, setMessage] = useState('');
@@ -14,7 +14,7 @@ const Messages = () => {
     const handleSendMessage = async () => {
         try {
             const token = localStorage.getItem('token');
-            let response = await axios.post('https://calendar-a5id.onrender.com/messages', {
+            let response = await axios.post('/messages', {
                 recipient: recipient._id,
                 content: message,
             }, {
@@ -27,7 +27,7 @@ const Messages = () => {
             setMessage('');
         } catch (error) {
 
-            console.error("bład podczas wysylania wiadomosci: ", error)
+            console.error("Error occurred while sending the message: ", error)
         }
     }
 
@@ -35,10 +35,10 @@ const Messages = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                let response = await axios.get('https://calendar-a5id.onrender.com/users');
+                let response = await axios.get('/users');
                 setUsers(response.data);
             } catch (error) {
-                console.error("Błąd podczas pobierania użytkowników: ", error);
+                console.error("Error with user fetching: ", error);
             }
         };
 
@@ -49,14 +49,14 @@ const Messages = () => {
         const fetchMessages = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get(`https://calendar-a5id.onrender.com/messages/${recipient._id}`, {
+                const response = await axios.get(`/messages/${recipient._id}`, {
                     headers: {
                         'Authorization': `${token}`
                     }
                 });
                 setMessages(response.data);
             } catch (error) {
-                console.error("Błąd podczas pobierania wiadomości: ", error);
+                console.error("Error with message fetching: ", error);
             }
         };
 
@@ -86,12 +86,14 @@ const Messages = () => {
                         ))}
                     </div>
                     <div className='write_message'>
-                        <input
-                            type='text'
-                            placeholder='Napisz wiadomość..'
-                            value={message}
-                            onChange={(e => setMessage(e.target.value))}></input>
-                        <button onClick={handleSendMessage}> <FontAwesomeIcon className='font' icon={faPaperPlane} /></button>
+                        <form>
+                            <input
+                                type='text'
+                                placeholder='Write message..'
+                                value={message}
+                                onChange={(e => setMessage(e.target.value))}></input>
+                            <button onClick={handleSendMessage}> <FontAwesomeIcon className='font' icon={faPaperPlane} /></button>
+                        </form>
                     </div>
                 </div>
             )}
@@ -108,7 +110,7 @@ const Messages = () => {
                                 {user.lastName && <span>{user.lastName}</span>}
                             </div>
                             <div className='user-actions'>
-                                <button onClick={() => setRecipient(user)}>Wiadomość</button>
+                                <button onClick={() => setRecipient(user)}>Message</button>
                             </div>
                         </li>
                     ))}

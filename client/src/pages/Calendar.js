@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo} from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Navigation from './Navigation';
 import './calendar.css'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
@@ -10,8 +10,9 @@ const Calendar = () => {
     let [year, setYear] = useState(today.getFullYear());
     let [month, setMonth] = useState(today.getMonth());
     let [dayElements, setDayElements] = useState([]);
-    const months = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"];
-    const days = useMemo(()=>["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela"],[]);
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const days = useMemo(() => ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], []);
+
     let getLastDayOfMonth = (year, month) => new Date(year, month + 1, 0).getDate()
     let getFirstDayOfMonth = (year, month) => new Date(year, month, 1).getDay();
     const handleClickNext = () => {
@@ -31,9 +32,9 @@ const Calendar = () => {
             setMonth(month - 1);
         }
     };
-  
 
-    const checkLastDayOfLastMonth =  useCallback((year, month) => {
+
+    const checkLastDayOfLastMonth = useCallback((year, month) => {
         if (month === 0) {
             month = 12;
             year -= 1;
@@ -42,15 +43,15 @@ const Calendar = () => {
         }
         return getLastDayOfMonth(year, month);
 
-    },[])
+    }, [])
     const showDaysInMonth = useCallback(() => {
         let FirstDay = getFirstDayOfMonth(year, month);
         let DaysOfMonth = getLastDayOfMonth(year, month);
         let i = 0, x = 1;
-        let arr = [];
+        let daysArray = [];
         FirstDay = (FirstDay === 0 ? 7 : FirstDay)
         while (i < FirstDay - 1) {
-            arr.push(<Day
+            daysArray.push(<Day
                 key={i}
                 day={FirstDay - i}
                 daysOfMonth={checkLastDayOfLastMonth(year, month)}
@@ -59,7 +60,7 @@ const Calendar = () => {
             i++;
         }
         while (i - FirstDay + 1 < DaysOfMonth) {
-            arr.push(<Day
+            daysArray.push(<Day
                 key={i}
                 day={i - FirstDay + 3}
                 month={month}
@@ -70,7 +71,7 @@ const Calendar = () => {
             i++;
         }
         while (i % 7 !== 0) {
-            arr.push(<Day
+            daysArray.push(<Day
                 key={i}
                 day={x}
                 daysOfMonth={checkLastDayOfLastMonth(year, month)}
@@ -79,14 +80,14 @@ const Calendar = () => {
             i++;
             x++;
         }
-        setDayElements(arr);
-    },[year, month, checkLastDayOfLastMonth, days]);
+        setDayElements(daysArray);
+    }, [year, month, checkLastDayOfLastMonth, days]);
 
     useEffect(() => {
         showDaysInMonth();
         return () => {
         };
-    }, [month,showDaysInMonth]);
+    }, [month, showDaysInMonth]);
     return (
         <div className='calendar_page'>
             <Navigation />
@@ -99,17 +100,17 @@ const Calendar = () => {
                         <button className='calendar-button' onClick={() => { handleClickNext(); showDaysInMonth(); }}><FontAwesomeIcon className='arrows_icon' icon={faChevronRight} /></button>
 
                     </div>
-                    <div className='calendar_user'>          
+                    <div className='calendar_user'>
                     </div>
                 </header>
                 <div className='days_of_week'>
-                    <div>Poniedziałek</div>
-                    <div>Wtorek</div>
-                    <div>Środa</div>
-                    <div>Czwartek</div>
-                    <div>Piątek</div>
-                    <div>Sobota</div>
-                    <div>Niedziela</div>
+                    <div>Monday</div>
+                    <div>Tuesday</div>
+                    <div>Wednesday</div>
+                    <div>Thursday</div>
+                    <div>Friday</div>
+                    <div>Saturday</div>
+                    <div>Sunday</div>
                 </div>
                 <div className="calendar_grid">
                     {dayElements}

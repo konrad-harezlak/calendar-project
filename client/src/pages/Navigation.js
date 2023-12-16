@@ -12,9 +12,9 @@ const Navigation = ()=>{
             <nav className='navigation'>
                 <div className='nav_container'>
                     <ul>
-                        <Link to="/home" className='nav_link'><li>Profil</li></Link>
-                        <Link to="/calendar" className='nav_link'><li>Kalendarz</li></Link>
-                        <Link to="/messages" className='nav_link'><li>Wiadomości</li></Link>
+                        <Link to="/home" className='nav_link'><li>Profile</li></Link>
+                        <Link to="/calendar" className='nav_link'><li>Calendar</li></Link>
+                        <Link to="/messages" className='nav_link'><li>Messages</li></Link>
                         <Link to="/pomodoro" className='nav_link'><li>Pomodoro</li></Link>
                     </ul>
                 </div>
