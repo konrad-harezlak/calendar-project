@@ -10,8 +10,8 @@ function authenticateToken(req, res, next) {
   const token = req.header('Authorization');
   if (!token) return res.status(401).send('Brak tokenu. Użytkownik nieuwierzytelniony.');
   jwt.verify(token, 'sekretny_token', (err, user) => {
-    if (err) return res.status(403).send('Nieprawidłowy token.'+err);
-    req.user = user; 
+    if (err) return res.status(403).send('Nieprawidłowy token.' + err);
+    req.user = user;
     next();
   });
 }

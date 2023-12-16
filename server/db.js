@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 const username = process.env.MONGO_USERNAME
-const password = process.env.MONGO_PASSWORD 
+const password = process.env.MONGO_PASSWORD
 const uri = `mongodb+srv://${username}:${password}@db.380bxnf.mongodb.net/?retryWrites=true&w=majority`;
 mongoose.connect(uri, {
   useNewUrlParser: true,
@@ -10,9 +10,10 @@ mongoose.connect(uri, {
 
 const db = mongoose.connection;
 
-db.on('error', console.error.bind(console, 'Błąd połączenia z bazą danych:'));
+db.on('error', console.error.bind(console, 'Error connecting to the database:'));
 db.once('open', () => {
-  console.log('Połączono z bazą danych MongoDB');
+  console.log('Connected to the MongoDB database');
 });
+
 
 module.exports = db;

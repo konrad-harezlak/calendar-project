@@ -7,30 +7,29 @@ async function registerUser(req, res) {
   const newUser = new User({ userName, email, password: hashedPassword });
 
   try {
-
     const existingUser = await User.findOne({ $or: [{ userName }, { email }] });
 
     if (existingUser) {
       if (existingUser.userName === userName) {
-        return res.status(400).json({ message: 'Użytkownik o podanej nazwie już istnieje.' });
+        return res.status(400).json({ message: 'User with this username already exists.' });
       }
 
       if (existingUser.email === email) {
-        return res.status(400).json({ message: 'Użytkownik o podanym emailu już istnieje.' });
+        return res.status(400).json({ message: 'User with this email already exists.' });
       }
     }
-      await newUser.save();
-      console.log('Użytkownik został pomyślnie zarejestrowany.');
 
-      res.redirect('/');
+    await newUser.save();
+    console.log('User has been successfully registered.');
 
-    } catch (error) {
-      console.error('Błąd podczas rejestracji użytkownika:', error);
-      res.redirect('/registration');
-    }
-    return res.status(200);
+    res.redirect('/');
+  } catch (error) {
+    console.error('Error during user registration:', error);
+    res.redirect('/registration');
   }
+  return res.status(200);
+}
 
 module.exports = {
-    registerUser
-  };
+  registerUser
+};

@@ -9,11 +9,11 @@ const formatTime = timeInSeconds => {
 };
 
 const Pomodoro = () => {
-    const [seconds, setSeconds] = useState(1500); //1500
+    const [seconds, setSeconds] = useState(1500);
     const [isActive, setIsActive] = useState(false);
     const [isBreak, setIsBreak] = useState(false);
-    const [breakDuration, setBreakDuration] = useState(300); //300
-    const [longBreakDuration, setLongBreakDuration] = useState(1800);//1800
+    const [breakDuration, setBreakDuration] = useState(300);
+    const [longBreakDuration, setLongBreakDuration] = useState(1800);
 
     useEffect(() => {
         let interval;

@@ -9,7 +9,7 @@ sendMessage = async (req, res) => {
     res.status(201).json(newMessage);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Nie udało się wysłać wiadomości.' });
+    res.status(500).json({ error: 'Failed to send the message.' });
   }
 };
 
@@ -24,7 +24,7 @@ getMessages = async (req, res) => {
       ]});
     res.status(200).json(messages);
   } catch (error) {
-    res.status(500).json({ error: 'Nie udało się pobrać wiadomości.' });
+    res.status(500).json({ error: 'Failed to send the message.' });
   }
 };
 

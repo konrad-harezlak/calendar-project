@@ -6,6 +6,6 @@ exports.getUsers = async (req, res) => {
     res.status(200).json(users);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Wystąpił błąd podczas pobierania użytkowników.' });
+    res.status(500).json({ error: 'Error ocured while fetching users.' });
   }
 };

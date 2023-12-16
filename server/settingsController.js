@@ -14,7 +14,7 @@ async function saveData(req, res) {
     upload.single('profilePicture')(req, res, async function (err) {
         if (err) {
             console.error(err);
-            return res.status(500).json({ message: 'Błąd podczas przesyłania pliku' });
+            return res.status(500).json({ message: 'Error occured while fetching photo.' });
         }
     });
 
@@ -26,11 +26,11 @@ async function saveData(req, res) {
     try {
         const passwordMatch = await bcrypt.compare(userData.password, user.password);
         if (!passwordMatch) {
-            return res.status(401).json({ message: 'Nieprawidłowe hasło' });
+            return res.status(401).json({ message: 'Incorrect password' });
         }
     } catch (err) {
         console.log(err);
-        return res.status(500).json({ message: 'Wystąpił błąd serwera' });
+        return res.status(500).json({ message: 'Server error occured' });
     }
     if (userData.firstName) user.firstName = userData.firstName;
     if (userData.lastName) user.lastName = userData.lastName;
@@ -40,7 +40,6 @@ async function saveData(req, res) {
     if (userData.email) user.email = userData.email;
     if (userData.userName) user.userName = userData.userName
     if (userData.password) {
-        // Zaszyfruj nowe hasło, jeśli zostało przesłane
         const hashedPassword = await bcrypt.hash(userData.password, 10);
         user.password = hashedPassword;
     }
@@ -52,10 +51,10 @@ async function saveData(req, res) {
     try {
         await user.save();
         const updatedUser = await User.findOne({ userName });
-        res.status(200).json({ message: 'Dane użytkownika zostały zaktualizowane pomyślnie', user: updatedUser });
+        res.status(200).json({ message: 'User data updated.', user: updatedUser });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Wystąpił błąd serwera podczas zapisywania danych użytkownika' });
+        res.status(500).json({ message: 'Error ocured while saveing user data. ' });
     }
 }
 
