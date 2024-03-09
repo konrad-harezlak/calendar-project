@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './pomodoro.css';
-import Navigation from './Navigation';
+import Navigation from '../Navigation/Navigation';
 
 const formatTime = timeInSeconds => {
     const minutes = Math.floor(timeInSeconds / 60);
@@ -11,9 +11,9 @@ const formatTime = timeInSeconds => {
 const Pomodoro = () => {
     const [seconds, setSeconds] = useState(1500);
     const [isActive, setIsActive] = useState(false);
-    const [isBreak, setIsBreak] = useState(false);
-    const [breakDuration, setBreakDuration] = useState(300);
-    const [longBreakDuration, setLongBreakDuration] = useState(1800);
+    const [, setIsBreak] = useState(false);
+    const [breakDuration] = useState(300);
+    const [longBreakDuration] = useState(1800);
 
     useEffect(() => {
         let interval;
@@ -30,12 +30,7 @@ const Pomodoro = () => {
         return () => clearInterval(interval);
     }, [isActive, seconds]);
 
-    const handleTimerCompletion = () => {
-        alert(isBreak ? "Break Completed!" : "Pomodoro Completed!");
-        setIsActive(false);
-        setIsBreak(false);
-        setSeconds(1500);
-    };
+    
 
     const toggleTimer = () => {
         setIsActive(!isActive);

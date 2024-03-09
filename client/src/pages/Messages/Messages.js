@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Navigation from './Navigation';
+import Navigation from '../Navigation/Navigation.js';
 import './messages.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import axios from '../api.js';
+import axios from '../../api.js';
 
 const Messages = () => {
     const [message, setMessage] = useState('');

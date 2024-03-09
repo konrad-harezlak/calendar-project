@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './settings.css';
-import axios from '../api.js'
-import { useAuth } from './AuthContext'
+import axios from '../../api.js'
+import { useAuth } from '../AuthContext.js'
 
 const Settings = () => {
     let [showPasswordError, setShowPasswordError] = useState(false);

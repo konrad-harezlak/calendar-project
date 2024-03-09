@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../api.js';
+import axios from '../../api';
 
 const DaySchedule = ({ onClose, selectedDate }) => {
     const [meetingTitle, setMeetingTitle] = useState('');
@@ -28,6 +28,7 @@ const DaySchedule = ({ onClose, selectedDate }) => {
     };
     useEffect(() => {
         fetchMeetings();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [formattedDate]);
 
     const handleCheckboxChange = () => {

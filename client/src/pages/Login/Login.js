@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from '../api.js';
+import axios from '../../api.js';
 import { Link, useNavigate } from 'react-router-dom';
 import './login.css';
-import { useAuth } from './AuthContext';
+import { useAuth } from '../AuthContext.js';
 
 const Login = () => {
     const { login } = useAuth();

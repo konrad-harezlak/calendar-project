@@ -1,0 +1,60 @@
+*{
+    box-sizing: border-box;
+}
+.todo_page {
+  display: flex;
+  flex-direction: row;
+  width: auto;
+}
+.todo_container {
+  width: 85%;
+}
+.task_list {
+  text-align: center;
+  width: 80%;
+  margin: 0 auto;
+  height: 70vh;
+  padding-top:1%
+}
+.task_input {
+  border-top: 1px solid black;
+  text-align: center;
+  width: 80%;
+  margin: 0 auto;
+  height: 30vh;
+
+}
+.task_input form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.task_input form label {
+  font-size: 20px;
+}
+.task_input input {
+  border-radius: 20px;
+  text-align: center;
+  font-size:100%;
+  height: 4vh;
+  width: 15vw;
+  margin: 10px;
+  transition: background-color 0.5s;
+}
+.task_input input:hover {
+    background-color: #eee;
+
+}
+
+.task_input button {
+ border-radius: 20px;
+ height: 4vh;
+ width: 10vw; 
+ background-color: #3498db;
+ border: 1px solid #2c3e50; 
+ color:#ecf0f1;
+ transition: background-color 0.5s;
+}
+.task_input button:hover{
+    background-color: #2980b9;
+}

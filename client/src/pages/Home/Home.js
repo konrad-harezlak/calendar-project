@@ -1,7 +1,7 @@
 import React from 'react';
 import './home.css';
-import Navigation from './Navigation';
-import { useAuth } from './AuthContext';
+import Navigation from '../Navigation/Navigation';
+import { useAuth } from '../AuthContext';
 
 const Home = () => {
     const { user } = useAuth();
@@ -22,7 +22,7 @@ const Home = () => {
                     <p>Experience Level: {user.experienceLevel || '-'}</p>
                 </div>
                 <div className='profile_image'>
-                    <img src={profilePictureURL} alt='Profile Picture' />
+                    <img src={profilePictureURL} alt='ProfilePicture'/>
                 </div>
                 <div className='profile_description'>
                     <h2>About Me:</h2>
