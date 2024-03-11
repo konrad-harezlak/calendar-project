@@ -1,47 +1,52 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const registrationController = require('./registrationController');
-const loginController = require('./loginController');
-const settingsController = require('./settingsController');
-const authenticateToken = require('./authenticateToken');
-const messageController = require('./messagesController');
-const usersController = require('./userController');
-const meetingController = require('./meetingController');
-const { isUserAvailable } = require('./meetingController')
+const registrationController = require("./registrationController");
+const loginController = require("./loginController");
+const settingsController = require("./settingsController");
+const authenticateToken = require("./authenticateToken");
+const messageController = require("./messagesController");
+const usersController = require("./userController");
+const meetingController = require("./meetingController");
+const { isUserAvailable } = require("./meetingController");
+const taskController = require("./taskController");
 
-router.post('/registration', registrationController.registerUser);
-router.get('/registration', (req, res) => {
-    console.log("poprawnie zarejestrowano")
-})
-
-router.post('/login', loginController.loginUser);
-router.get('/login', (req, res) => {
-    console.log("odpoweidz poprawne zarejestrowanie")
+router.get("/", (req, res) => {
+  res.send("Witaj na stronie Y!");
 });
 
-router.get('/', (req, res) => {
-    res.send('Witaj na stronie Y!');
+router.post("/settings", authenticateToken, settingsController.saveData);
+
+//registartion
+router.post("/registration", registrationController.registerUser);
+router.get("/registration", (req, res) => {
+  console.log("poprawnie zarejestrowano");
 });
-router.post('/settings', authenticateToken, settingsController.saveData);
 
-router.post('/messages', authenticateToken, messageController.sendMessage);
-router.get('/messages/:recipientId', authenticateToken, messageController.getMessages);
-
-router.get('/users', usersController.getUsers)
-
-router.post('/meetings', meetingController.createMeeting);
-router.get('/meetings', meetingController.readMeetings);
-router.delete('/meetings/:id',meetingController.deleteParticipantFromMeeting);
-router.get('/isUserAvailable', async (req, res) => {
-    const { userName, date, startTime, endTime } = req.query;
-   
-    try {
-        const isAvailable = await isUserAvailable(userName, date, startTime, endTime);
-        res.json({ isAvailable });
-    } catch (error) {
-        console.error('Błąd podczas sprawdzania dostępności użytkownika:', error);
-        res.status(500).json({ error: 'Błąd podczas sprawdzania dostępności użytkownika.' });
-    }
+//login
+router.post("/login", loginController.loginUser);
+router.get("/login", (req, res) => {
+  console.log("odpoweidz poprawne zarejestrowanie");
 });
+
+//mesages
+router.post("/messages", authenticateToken, messageController.sendMessage);
+router.get(
+  "/messages/:recipientId",
+  authenticateToken,
+  messageController.getMessages
+);
+
+//users
+router.get("/isUserAvailable", usersController.isUserAvaliable);
+router.get("/users", usersController.getUsers);
+
+//meetings
+router.post("/meetings", meetingController.createMeeting);
+router.get("/meetings", meetingController.readMeetings);
+router.delete("/meetings/:id", meetingController.deleteParticipantFromMeeting);
+
+//tasks
+router.get("/tasks", authenticateToken,taskController.getTasks);
+router.post("/tasks", authenticateToken, taskController.addTask);
 
 module.exports = router;
