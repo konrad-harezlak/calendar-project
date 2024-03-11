@@ -68,7 +68,7 @@ const Messages = () => {
         }
     }, [recipient._id]);
     return (
-        <div className='messages_page'>
+        <div className='home_page'>
             <Navigation />
             {recipient && (
                 <div className='messages_container'>

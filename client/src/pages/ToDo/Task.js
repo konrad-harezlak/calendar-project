@@ -1,12 +1,12 @@
 import React from "react";
 
-const Task = ({ task, handleFinishTask }) => {
+const Task = ({ task,title,desc, exFun }) => {
   return (
     <div className="task">
-      <h1>Title: {task.title}</h1>
-      <p>Description: {task.desc}</p>
+      <h3>Title: {title}</h3>
+      <p>Description: {desc}</p>
       <p>Completed: {task.completed ? "Yes" : "No"}</p>
-      <button className="taks_competed" onClick={handleFinishTask()}>
+      <button className="taks_competed" onClick={exFun}>
         Finish
       </button>
     </div>
