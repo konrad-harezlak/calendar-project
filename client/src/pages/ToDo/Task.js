@@ -1,12 +1,26 @@
 import React from "react";
+import { useDrag } from "react-dnd";
 
-const Task = ({ task,title,desc, exFun }) => {
+const Task = ({id, title, desc, handleClick }) => {
+  const ItemTypes = {
+    CARD: "card",
+  };
+
+  const [{ opacity }, dragRef] = useDrag(
+    () => ({
+      type: ItemTypes.CARD,
+      item: { id: id },
+      collect: (monitor) => ({
+        opacity: monitor.isDragging() ? 0.5 : 1,
+      }),
+    }),
+    [title]
+  );
   return (
-    <div className="task">
+    <div className="task" ref={dragRef} style={{opacity}}>
       <h3>Title: {title}</h3>
       <p>Description: {desc}</p>
-      <p>Completed: {task.completed ? "Yes" : "No"}</p>
-      <button className="taks_competed" onClick={exFun}>
+      <button className="taks_completed" onClick={handleClick}>
         Finish
       </button>
     </div>

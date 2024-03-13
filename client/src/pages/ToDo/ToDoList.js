@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { useDrop } from "react-dnd";
 import Navigation from "../Navigation/Navigation";
 import axios from "../../api";
 import Task from "./Task";
 import "./toDoList.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane, faTasks } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 const Todo = () => {
-  const [isSwitchOn, setIsSwtichOn] = useState([]);
+  const ItemTypes = {
+    CARD: "card",
+  };
+  const [isSwitchOn, setIsSwtichOn] = useState(true);
   const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState({ id: "", title: "", description: "" });
   useEffect(() => {
@@ -20,6 +24,7 @@ const Todo = () => {
           Authorization: `${token}`,
         },
       });
+      console.log(response.data);
       setTasks(response.data);
     } catch (err) {
       console.error("Error occured while  fetching tasks: ", err);
@@ -56,10 +61,69 @@ const Todo = () => {
     } else {
       alert("Title can't be empty!");
     }
+    fetchTasks();
+  }; 
+  const changeStatus = async (newStatus, itemId) => {
+    const newTasks = tasks.map((task) => {
+      if (task.id === itemId) {
+        return { ...task, status: newStatus };
+      }
+      return task;
+    });
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.put(
+        `/tasks/${itemId}`,
+        { status: newStatus },
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
+      setTasks(newTasks);
+      console.log("Task status changed successfully:", response.data);
+    } catch (error) {
+      console.error("Error occured while changing task status:", error);
+    }
   };
-  const handleFinishTask = (taskId) => {
-    console.log(taskId);
-  };
+  const [, drop4] = useDrop({
+    accept: ItemTypes.CARD,
+    drop: async (item, monitor) => {
+      changeStatus(4, item.id);
+    },
+  });
+
+  const [, drop3] = useDrop({
+    accept: ItemTypes.CARD,
+    drop: (item, monitor) => {
+      changeStatus(3, item.id);
+    },
+  });
+  const [, drop2] = useDrop({
+    accept: ItemTypes.CARD,
+    drop: (item, monitor) => {
+      changeStatus(2, item.id);
+    },
+  });
+  const [, drop1] = useDrop({
+    accept: ItemTypes.CARD,
+    drop: (item, monitor) => {
+      changeStatus(1, item.id);
+    },
+  });
+  const [, drop0] = useDrop({
+    accept: ItemTypes.CARD,
+    drop: (item, monitor) => {
+      changeStatus(0, item.id);
+    },
+  });
+  const [, drop5] = useDrop({
+    accept: ItemTypes.CARD,
+    drop: (item, monitor) => {
+      changeStatus(-1, item.id);
+    },
+  });
 
   return (
     <div className="home_page">
@@ -71,113 +135,191 @@ const Todo = () => {
               <input
                 type="checkbox"
                 checked={isSwitchOn}
-                onChange={() => setIsSwtichOn(!isSwitchOn)}
+                onChange={() =>{  setIsSwtichOn(!isSwitchOn); fetchTasks()}}
                 id="switch"
               />
-              <label for="switch">Toggle</label>
+              <label htmlFor="switch">Toggle</label>
             </div>
             {isSwitchOn ? (
-              <div class="task-grid-container">
-                <div class="grid-container">
-                  <div class="grid-item-1"></div>
-                  <div class="grid-item">
+              <div className="task-grid-container">
+                <div className="grid-container">
+                  <div className="grid-item-1"></div>
+                  <div className="grid-item">
                     <h3>NOT URGENT</h3>
                   </div>
-                  <div class="grid-item">
+                  <div className="grid-item">
                     <h3>URGENT</h3>
                   </div>
-                  <div class="grid-item-1">
+                  <div className="grid-item-1">
                     <h3>IMPORTANT</h3>
                   </div>
-                  <div class="grid-item">5</div>
-                  <div class="grid-item">6</div>
-                  <div class="grid-item-1">
+                  <div className="grid-item" ref={drop2}>
+                    {tasks
+                      .filter((task) => task.status === 2)
+                      .map((task) => (
+                        <Task
+                          key={task.id}
+                          id={task.id}
+                          title={task.title}
+                          desc={task.description}
+                        />
+                      ))}
+                  </div>
+                  <div className="grid-item" ref={drop4}>
+                    {tasks
+                      .filter((task) => task.status === 4)
+                      .map((task) => (
+                        <Task
+                          key={task.id}
+                          id={task.id}
+                          title={task.title}
+                          desc={task.description}
+                          handleClick={() => changeStatus(-1,task.id)}
+                        />
+                      ))}
+                  </div>
+                  <div className="grid-item-1">
                     <h3>LESS IMPORTANT</h3>
                   </div>
-                  <div class="grid-item">8</div>
-                  <div class="grid-item">9</div>
+                  <div className="grid-item" ref={drop1}>
+                    {tasks
+                      .filter((task) => task.status === 1)
+                      .map((task) => (
+                        <Task
+                          key={task.id}
+                          id={task.id}
+                          title={task.title}
+                          desc={task.description}
+                          handleClick={() => changeStatus(-1,task.id)}
+                        />
+                      ))}
+                  </div>
+                  <div className="grid-item" ref={drop3}>
+                    {tasks
+                      .filter((task) => task.status === 3)
+                      .map((task) => (
+                        <Task
+                          key={task.id}
+                          id={task.id}
+                          title={task.title}
+                          desc={task.description}
+                          handleClick={() => changeStatus(-1,task.id)}
+                        />
+                      ))}
+                  </div>
                 </div>
-                <div className="unassigned_tasks">
+                <div className="unassigned_tasks" ref={drop0}>
                   {tasks
-                    .filter((task) => task.isCompleted === 0)
+                    .filter((task) => task.status === 0)
                     .map((task) => (
                       <Task
                         key={task.id}
-                        task={faTasks}
+                        id={task.id}
                         title={task.title}
                         desc={task.description}
-                        onClick={() => handleFinishTask(task.id)}
+                        handleClick={() => changeStatus(-1,task.id)}
                       />
                     ))}
+                    <div className="completed_tasks">
+                  {tasks
+                    .filter((task) => task.status === -1)
+                    .map((task) => (
+                      <Task
+                        key={task.id}
+                        title={task.title}
+                        desc={task.description}
+                        handleClick={() => changeStatus(-1,task.id)}
+                      />
+                    ))}
+                    </div>
                 </div>
               </div>
             ) : (
               <div className="task_list">
-                {tasks.filter((task) => task.isCompleted === 4).length > 0 && (
-                  <div>
-                    <h2>IMPORTANT & URGENT</h2>
-                    {tasks
-                      .filter((task) => task.isCompleted === 4)
-                      .map((task, index) => (
-                        <div className="task" key={index}>
-                          <h3>{task.title}</h3>
-                          <p>{task.description}</p>
-                        </div>
-                      ))}
-                  </div>
-                )}
-                {tasks.filter((task) => task.isCompleted === 3).length > 0 && (
-                  <div>
-                    <h2>URGENT</h2>
-                    {tasks
-                      .filter((task) => task.isCompleted === 3)
-                      .map((task, index) => (
-                        <div className="task" key={index}>
-                          <h3>{task.title}</h3>
-                          <p>{task.description}</p>
-                        </div>
-                      ))}
-                  </div>
-                )}
-                {tasks.filter((task) => task.isCompleted === 2).length > 0 && (
-                  <div>
-                    <h2>IMPORTANT</h2>
-                    {tasks
-                      .filter((task) => task.isCompleted === 2)
-                      .map((task, index) => (
-                        <div className="task" key={index}>
-                          <h3>{task.title}</h3>
-                          <p>{task.description}</p>
-                        </div>
-                      ))}
-                  </div>
-                )}
-                {tasks.filter((task) => task.isCompleted === 1).length > 0 && (
-                  <div>
-                    <h2>NOT IMPORTANT & NOT URGENT</h2>
-                    {tasks
-                      .filter((task) => task.isCompleted === 1)
-                      .map((task, index) => (
-                        <div className="task" key={index}>
-                          <h3>{task.title}</h3>
-                          <p>{task.description}</p>
-                        </div>
-                      ))}
-                  </div>
-                )}
-                {tasks.filter((task) => task.isCompleted === 0).length > 0 && (
-                  <div>
-                    <h2>UNASSIGNED</h2>
-                    {tasks
-                      .filter((task) => task.isCompleted === 0)
-                      .map((task, index) => (
-                        <div className="task" key={index}>
-                          <h3>{task.title}</h3>
-                          <p>{task.description}</p>
-                        </div>
-                      ))}
-                  </div>
-                )}
+                <div ref={drop4}>
+                  <h2>IMPORTANT & URGENT</h2>
+                  {tasks
+                    .filter((task) => task.status === 4)
+                    .map((task, index) => (
+                      <Task
+                        key={index}
+                        id={task.id}
+                        title={task.title}
+                        desc={task.description}
+                        handleClick={() => changeStatus(-1,task.id)}
+                      />
+                    ))}
+                </div>
+                <div ref={drop3}>
+                  <h2>URGENT</h2>
+                  {tasks
+                    .filter((task) => task.status === 3)
+                    .map((task, index) => (
+                      <Task
+                        key={index}
+                        id={task.id}
+                        title={task.title}
+                        desc={task.description}
+                        handleClick={() => changeStatus(-1,task.id)}
+                      />
+                    ))}
+                </div>
+                <div ref={drop2}>
+                  <h2>IMPORTANT</h2>
+                  {tasks
+                    .filter((task) => task.status === 2)
+                    .map((task, index) => (
+                      <Task
+                        key={index}
+                        id={task.id}
+                        title={task.title}
+                        desc={task.description}
+                        handleClick={() => changeStatus(-1,task.id)}
+                      />
+                    ))}
+                </div>
+                <div ref={drop1}>
+                  <h2>NOT IMPORTANT & NOT URGENT</h2>
+                  {tasks
+                    .filter((task) => task.status === 1)
+                    .map((task, index) => (
+                      <Task
+                        key={index}
+                        id={task.id}
+                        title={task.title}
+                        desc={task.description}
+                        handleClick={() => changeStatus(-1,task.id)}
+                      />
+                    ))}
+                </div>
+                <div ref={drop0}>
+                  <h2>UNASSIGNED</h2>
+                  {tasks
+                    .filter((task) => task.status === 0)
+                    .map((task, index) => (
+                      <Task
+                        key={index}
+                        id={task.id}
+                        title={task.title}
+                        desc={task.description}
+                        handleClick={() => changeStatus(-1,task.id)}
+                      />
+                    ))}
+                </div>
+                <div  className="completed_tasks" ref={drop5}>
+                  <h2>COMPLETED</h2>
+                  {tasks
+                    .filter((task) => task.status === -1)
+                    .map((task, index) => (
+                      <Task
+                        key={index}
+                        id={task.id}
+                        title={task.title}
+                        desc={task.description}
+                        handleClick={() => changeStatus(-1,task.id)}
+                      />
+                    ))}
+                </div>
               </div>
             )}
           </div>
@@ -186,7 +328,7 @@ const Todo = () => {
           <h2>Add task!</h2>
 
           <form>
-            <label for="title">Title:</label>
+            <label htmlFor="title">Title:</label>
             <input
               type="text"
               id="title"
@@ -195,7 +337,7 @@ const Todo = () => {
               name="title"
               onChange={handleChangeTask}
             ></input>
-            <label for="description">Description:</label>
+            <label htmlFor="description">Description:</label>
             <input
               type="text"
               id="description"

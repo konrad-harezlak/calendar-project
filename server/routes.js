@@ -48,5 +48,6 @@ router.delete("/meetings/:id", meetingController.deleteParticipantFromMeeting);
 //tasks
 router.get("/tasks", authenticateToken,taskController.getTasks);
 router.post("/tasks", authenticateToken, taskController.addTask);
+router.put("/tasks/:itemId",authenticateToken, taskController.changeStatus);
 
 module.exports = router;
