@@ -25,7 +25,7 @@ exports.addTask = async (req, res) => {
     await newTask.save();
     res
       .status(200)
-      .json({ message: "Ta sk Added successfully", task: newTask });
+      .json({ message: "Task Added successfully", task: newTask });
   } catch (err) {
     console.error("Error ocured while adding task: ", err);
     res.status(500).json({ error: "Error ocured while adding task" });

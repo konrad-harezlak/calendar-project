@@ -67,22 +67,47 @@
   text-wrap: wrap;
   overflow-y: auto;
   overflow-x: hidden;
-  min-width: 200px;
+  min-width: 250px;
+}
+.unassigned_tasks .task h3{
+  margin:10px;
+  min-height: 20%;
+}
+.unassigned_tasks .task p{
+  margin:5px;
+  min-height: 30%;
 }
 .task_list {
   overflow-y: scroll;
   height: 95%;
 }
+
 .completed_tasks{
   height: 100%;
   width:auto;
+  display: flex;
+  flex-direction: column;
 }
 .completed_tasks .task{
   background-color: #999;
   height: 95%;
-  min-width: 200px;
+  min-width: 250px;
+ 
 
 }
+.task_list .completed_tasks{
+  width:100%;
+  display: flex;
+  justify-content: center;
+  height: auto;
+}
+.task_list .completed_tasks .task{
+  width:99%;
+  text-wrap:wrap;
+  overflow:auto;
+  background-color: #2c3e50;
+}
+/* TASK */
 .task {
   padding: 10px;
   color: #2980b9;
@@ -93,10 +118,10 @@
 
 }
 
-
 .task p {
   font-size: 1em;
   color: #ecf0f1;
+  min-height: 30%;
 }
 .task button {
   height: 3vh;

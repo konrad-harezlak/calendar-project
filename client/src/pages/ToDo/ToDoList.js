@@ -63,6 +63,12 @@ const Todo = () => {
     }
     fetchTasks();
   }; 
+  const delTask = async(taskId)=>{
+    const newTasks = tasks.fileter((task)=>{
+      return task.id!==taskId
+    })
+    console.log(newTasks)
+  }
   const changeStatus = async (newStatus, itemId) => {
     const newTasks = tasks.map((task) => {
       if (task.id === itemId) {
@@ -162,6 +168,7 @@ const Todo = () => {
                           id={task.id}
                           title={task.title}
                           desc={task.description}
+                          handleClick={() => changeStatus(-1,task.id)}
                         />
                       ))}
                   </div>
@@ -220,15 +227,18 @@ const Todo = () => {
                         handleClick={() => changeStatus(-1,task.id)}
                       />
                     ))}
-                    <div className="completed_tasks">
+                    <div className="completed_tasks" ref={drop5}>
                   {tasks
                     .filter((task) => task.status === -1)
                     .map((task) => (
                       <Task
                         key={task.id}
+                        id={task.id}
                         title={task.title}
                         desc={task.description}
-                        handleClick={() => changeStatus(-1,task.id)}
+                        handleClick={() => changeStatus(0,task.id)}
+                        handleEnd={()=>delTask(task.id)}
+                        complete={1}
                       />
                     ))}
                     </div>
@@ -317,6 +327,7 @@ const Todo = () => {
                         title={task.title}
                         desc={task.description}
                         handleClick={() => changeStatus(-1,task.id)}
+                        handleEnd={()=>delTask(task.id)}
                       />
                     ))}
                 </div>

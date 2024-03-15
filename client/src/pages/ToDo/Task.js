@@ -1,11 +1,10 @@
 import React from "react";
 import { useDrag } from "react-dnd";
 
-const Task = ({id, title, desc, handleClick }) => {
+const Task = ({id, title, desc, handleClick,complete,handleEnd }) => {
   const ItemTypes = {
     CARD: "card",
   };
-
   const [{ opacity }, dragRef] = useDrag(
     () => ({
       type: ItemTypes.CARD,
@@ -21,8 +20,11 @@ const Task = ({id, title, desc, handleClick }) => {
       <h3>Title: {title}</h3>
       <p>Description: {desc}</p>
       <button className="taks_completed" onClick={handleClick}>
-        Finish
+        {complete!== 1 ? "Finish" : "Resume"}
       </button>
+      
+        {typeof handleEnd==='function' ? (<button className="taks_end" onClick={handleClick}>Delete</button>) : ("")}
+      
     </div>
   );
 };
