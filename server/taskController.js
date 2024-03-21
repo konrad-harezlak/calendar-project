@@ -23,9 +23,7 @@ exports.addTask = async (req, res) => {
       isCompleted: false,
     });
     await newTask.save();
-    res
-      .status(200)
-      .json({ message: "Task Added successfully", task: newTask });
+    res.status(200).json({ message: "Task Added successfully", task: newTask });
   } catch (err) {
     console.error("Error ocured while adding task: ", err);
     res.status(500).json({ error: "Error ocured while adding task" });
@@ -43,5 +41,15 @@ exports.changeStatus = async (req, res) => {
     res.status(200).json({ message: "Task status updated successfully", task });
   } catch (err) {
     console.error("Error ocured while changing task status: ", err);
+  }
+};
+exports.deleteTask = async (req, res) => {
+  const userId = req.user.userId;
+  const taskId = req.params.taskId;
+  try {
+    await Task.deleteOne({ id: taskId, user: userId });
+    res.status(200).json({ message: "Task deleted successfully", taskId });
+  } catch (err) {
+    console.error("Error ocured while deleting task: ", err);
   }
 };

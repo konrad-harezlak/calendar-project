@@ -7,7 +7,6 @@ const authenticateToken = require("./authenticateToken");
 const messageController = require("./messagesController");
 const usersController = require("./userController");
 const meetingController = require("./meetingController");
-const { isUserAvailable } = require("./meetingController");
 const taskController = require("./taskController");
 
 router.get("/", (req, res) => {
@@ -37,7 +36,7 @@ router.get(
 );
 
 //users
-router.get("/isUserAvailable", usersController.isUserAvaliable);
+router.get("/isUserAvailable", usersController.isUserAvailable);
 router.get("/users", usersController.getUsers);
 
 //meetings
@@ -49,5 +48,6 @@ router.delete("/meetings/:id", meetingController.deleteParticipantFromMeeting);
 router.get("/tasks", authenticateToken,taskController.getTasks);
 router.post("/tasks", authenticateToken, taskController.addTask);
 router.put("/tasks/:itemId",authenticateToken, taskController.changeStatus);
+router.delete("/tasks/:taskId",authenticateToken, taskController.deleteTask);
 
 module.exports = router;

@@ -10,7 +10,7 @@
     border: 1px solid black;
     width: 22vw;
     height: auto;
-    max-height: 60vh;
+    max-height: 70vh;
     margin: 0 auto;
     background-color: #2c3e50;
     border-radius: 30px;
@@ -45,8 +45,6 @@
 }
 
 .registration_page .form .button_login {
-    margin-top: 1.5rem;
-    margin-bottom: 0;
     height: 2.5rem;
     width: 6vw;
     max-width: 40%;
@@ -73,10 +71,20 @@
 }
 
 @media (max-width: 1300px) {
+    .registration_page .form{
+        width:auto;
+        max-height: 100%;
+        height: auto;
+    }
+    .registration_page .form input{
+        width:auto;
+    }
     .registration_page .form .button_login {
-        margin: 1rem auto;
-        height: 4vh;
-        width: 10vw;
+        margin: 10px auto;
+        height: auto;
+        width: auto;
         max-width: 40%;
+        padding:6px;
+        
     }
 }

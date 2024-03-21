@@ -1,5 +1,5 @@
 const User = require("./userModel");
-
+const {isUserAvailable} = require('./meetingController')
 exports.getUsers = async (req, res) => {
   try {
     const users = await User.find({}, "userName firstName lastName");
@@ -9,7 +9,7 @@ exports.getUsers = async (req, res) => {
     res.status(500).json({ error: "Error ocured while fetching users." });
   }
 };
-exports.isUserAvaliable = async (req, res) => {
+exports.isUserAvailable = async (req, res) => {
   const { userName, date, startTime, endTime } = req.query;
 
   try {

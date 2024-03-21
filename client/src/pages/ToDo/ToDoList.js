@@ -10,7 +10,7 @@ const Todo = () => {
   const ItemTypes = {
     CARD: "card",
   };
-  const [isSwitchOn, setIsSwtichOn] = useState(true);
+  const [isSwitchOn, setIsSwtichOn] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState({ id: "", title: "", description: "" });
   useEffect(() => {
@@ -62,13 +62,25 @@ const Todo = () => {
       alert("Title can't be empty!");
     }
     fetchTasks();
-  }; 
-  const delTask = async(taskId)=>{
-    const newTasks = tasks.fileter((task)=>{
-      return task.id!==taskId
-    })
-    console.log(newTasks)
-  }
+  };
+  const delTask = async (taskId) => {
+    const newTasks = tasks.filter((task) => {
+      return task.id !== taskId;
+    });
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.delete(`/tasks/${taskId}`, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+      console.log(newTasks);
+      setTasks(newTasks);
+      console.log("Task status changed successfully:", response.data);
+    } catch (error) {
+      console.error("Error occured while changing task status:", error);
+    }
+  };
   const changeStatus = async (newStatus, itemId) => {
     const newTasks = tasks.map((task) => {
       if (task.id === itemId) {
@@ -132,7 +144,7 @@ const Todo = () => {
   });
 
   return (
-    <div className="home_page">
+    <div className="todo_page">
       <Navigation />
       <div className="todo_container">
         <div className="task_container">
@@ -141,7 +153,10 @@ const Todo = () => {
               <input
                 type="checkbox"
                 checked={isSwitchOn}
-                onChange={() =>{  setIsSwtichOn(!isSwitchOn); fetchTasks()}}
+                onChange={() => {
+                  setIsSwtichOn(!isSwitchOn);
+                  fetchTasks();
+                }}
                 id="switch"
               />
               <label htmlFor="switch">Toggle</label>
@@ -168,7 +183,7 @@ const Todo = () => {
                           id={task.id}
                           title={task.title}
                           desc={task.description}
-                          handleClick={() => changeStatus(-1,task.id)}
+                          handleClick={() => changeStatus(-1, task.id)}
                         />
                       ))}
                   </div>
@@ -181,7 +196,7 @@ const Todo = () => {
                           id={task.id}
                           title={task.title}
                           desc={task.description}
-                          handleClick={() => changeStatus(-1,task.id)}
+                          handleClick={() => changeStatus(-1, task.id)}
                         />
                       ))}
                   </div>
@@ -197,7 +212,7 @@ const Todo = () => {
                           id={task.id}
                           title={task.title}
                           desc={task.description}
-                          handleClick={() => changeStatus(-1,task.id)}
+                          handleClick={() => changeStatus(-1, task.id)}
                         />
                       ))}
                   </div>
@@ -210,7 +225,7 @@ const Todo = () => {
                           id={task.id}
                           title={task.title}
                           desc={task.description}
-                          handleClick={() => changeStatus(-1,task.id)}
+                          handleClick={() => changeStatus(-1, task.id)}
                         />
                       ))}
                   </div>
@@ -224,24 +239,24 @@ const Todo = () => {
                         id={task.id}
                         title={task.title}
                         desc={task.description}
-                        handleClick={() => changeStatus(-1,task.id)}
+                        handleClick={() => changeStatus(-1, task.id)}
                       />
                     ))}
-                    <div className="completed_tasks" ref={drop5}>
-                  {tasks
-                    .filter((task) => task.status === -1)
-                    .map((task) => (
-                      <Task
-                        key={task.id}
-                        id={task.id}
-                        title={task.title}
-                        desc={task.description}
-                        handleClick={() => changeStatus(0,task.id)}
-                        handleEnd={()=>delTask(task.id)}
-                        complete={1}
-                      />
-                    ))}
-                    </div>
+                  <div className="completed_tasks" ref={drop5}>
+                    {tasks
+                      .filter((task) => task.status === -1)
+                      .map((task) => (
+                        <Task
+                          key={task.id}
+                          id={task.id}
+                          title={task.title}
+                          desc={task.description}
+                          handleClick={() => changeStatus(0, task.id)}
+                          handleEnd={() => delTask(task.id)}
+                          complete={1}
+                        />
+                      ))}
+                  </div>
                 </div>
               </div>
             ) : (
@@ -256,7 +271,7 @@ const Todo = () => {
                         id={task.id}
                         title={task.title}
                         desc={task.description}
-                        handleClick={() => changeStatus(-1,task.id)}
+                        handleClick={() => changeStatus(-1, task.id)}
                       />
                     ))}
                 </div>
@@ -270,7 +285,7 @@ const Todo = () => {
                         id={task.id}
                         title={task.title}
                         desc={task.description}
-                        handleClick={() => changeStatus(-1,task.id)}
+                        handleClick={() => changeStatus(-1, task.id)}
                       />
                     ))}
                 </div>
@@ -284,7 +299,7 @@ const Todo = () => {
                         id={task.id}
                         title={task.title}
                         desc={task.description}
-                        handleClick={() => changeStatus(-1,task.id)}
+                        handleClick={() => changeStatus(-1, task.id)}
                       />
                     ))}
                 </div>
@@ -298,7 +313,7 @@ const Todo = () => {
                         id={task.id}
                         title={task.title}
                         desc={task.description}
-                        handleClick={() => changeStatus(-1,task.id)}
+                        handleClick={() => changeStatus(-1, task.id)}
                       />
                     ))}
                 </div>
@@ -312,11 +327,11 @@ const Todo = () => {
                         id={task.id}
                         title={task.title}
                         desc={task.description}
-                        handleClick={() => changeStatus(-1,task.id)}
+                        handleClick={() => changeStatus(-1, task.id)}
                       />
                     ))}
                 </div>
-                <div  className="completed_tasks" ref={drop5}>
+                <div className="completed_tasks" ref={drop5}>
                   <h2>COMPLETED</h2>
                   {tasks
                     .filter((task) => task.status === -1)
@@ -326,8 +341,9 @@ const Todo = () => {
                         id={task.id}
                         title={task.title}
                         desc={task.description}
-                        handleClick={() => changeStatus(-1,task.id)}
-                        handleEnd={()=>delTask(task.id)}
+                        handleClick={() => changeStatus(-1, task.id)}
+                        complete={1}
+                        handleEnd={() => delTask(task.id)}
                       />
                     ))}
                 </div>

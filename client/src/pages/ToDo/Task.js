@@ -19,11 +19,11 @@ const Task = ({id, title, desc, handleClick,complete,handleEnd }) => {
     <div className="task" ref={dragRef} style={{opacity}}>
       <h3>Title: {title}</h3>
       <p>Description: {desc}</p>
-      <button className="taks_completed" onClick={handleClick}>
+      <button className="task_completed" onClick={handleClick}>
         {complete!== 1 ? "Finish" : "Resume"}
       </button>
       
-        {typeof handleEnd==='function' ? (<button className="taks_end" onClick={handleClick}>Delete</button>) : ("")}
+        {typeof handleEnd==='function' ? (<button className="task_end" onClick={handleEnd}>Delete</button>) : ("")}
       
     </div>
   );

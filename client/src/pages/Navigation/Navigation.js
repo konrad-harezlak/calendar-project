@@ -23,7 +23,7 @@ const Navigation = ()=>{
                     <button onClick={logout}>
                         <FontAwesomeIcon icon={faSignOut} className='font_icon'  />
                     </button>
-                    <Link to='/settings'>
+                    <Link to='/settings' >
                         <FontAwesomeIcon icon={faGear} size='3x' className='font_icon' />
                     </Link>
                 </div>

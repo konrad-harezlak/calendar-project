@@ -1,3 +1,9 @@
+
+.message_page{
+    display:flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+}
 .messages_container {
     margin: 2vh 2vw;
     width: 66vw;
@@ -65,8 +71,16 @@
     justify-content: center;
     align-items: center;
     background-color: white;
+    width: 100%;
 }
-
+.write_message form{
+    width: 80%;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 .write_message input {
     width: 70%;
     text-align: center;
@@ -80,7 +94,7 @@
 
 .write_message button {
     border-radius: 25px;
-    width: 9%;
+    width: 6%;
     height: 75%;
     background-color: #4caf50;
     border: none;
@@ -160,6 +174,7 @@
     background-color: #3498db;
     color: white;
     border: none;
+    width:auto;
     border-radius: 5px;
     padding: 8px 15px;
     cursor: pointer;
@@ -167,5 +182,47 @@
 }
 
 .users_container .user .user-actions button:hover {
-    background-color: #2980b9;
+    background-color: #2575b4;
+}
+@media only screen and (max-width: 500px) {
+    .message_page{
+        display: flex;
+        justify-content: flex-end;
+    }
+    .message_page nav{
+        height: 10vh;
+    }
+    .messages_container {
+        height: 90vh;
+        width: 75vw;
+        margin:0 auto;
+    }
+    .users_container{
+        height: 90vh;
+        width: 24vw;
+        margin:0 auto;
+        padding: 1px;
+        margin-right:0;
+
+    }
+    .users_container .users_header{
+        width:auto;
+        padding:15px;
+        
+    }
+    .users_container .user{
+        width:auto;
+        padding:5px;
+       
+    }
+    .users_container .user .user-actions button {
+        padding:5px;
+        width:auto;
+    }
+    .users_container .user-details span{
+        font-size: 16px;
+    }
+    .write_message button{
+        width:auto;
+    }
 }
