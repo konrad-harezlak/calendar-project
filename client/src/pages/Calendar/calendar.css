@@ -61,12 +61,12 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-gap: 10px;
-  height: calc(3vw+1vh);
   overflow: hidden;
 }
 
 .days_of_week div {
-  font-size: 2vw;
+  font-size: min(2vw,30px);
+
   text-align: center;
 }
 
