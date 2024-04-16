@@ -41,8 +41,7 @@ This web application, built using React, Node.js, and MongoDB, provides users wi
 ### Profile
   
 - **Home:** Users can view their profile information and basic details.
-![image](https://github.com/konrad-harezlak/calendar-project/assets/146349083/b8a20aea-e439-4a85-98eb-0c4d9ea00b53)
-
+![image](https://github.com/konrad-harezlak/calendar-project/assets/146349083/8fa0c2bb-2a1a-4d86-b65f-6dd55923bd03)
 
 - **Calendar:** Calendar view.
 ![image](https://github.com/konrad-harezlak/calendar-project/assets/146349083/46eb7a97-71fd-431f-8203-bcb90c6e952b)
